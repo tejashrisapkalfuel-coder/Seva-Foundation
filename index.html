@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="mr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seva Foundation | सेवा फाउंडेशन - Student Scholarship & Career Counseling</title>
+    <meta name="description" content="Seva Foundation founded by Tejashri Sapkal empowers students through scholarships, career guidance, and counseling. Support us through donations.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                        },
+                        accent: {
+                            500: '#f97316',
+                            600: '#ea580c',
+                        },
+                        emeraldCustom: {
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-brand-700 via-brand-600 to-accent-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-sm flex justify-between items-center max-w-full overflow-hidden">
+        <div class="container mx-auto flex justify-between items-center">
+            <span class="truncate"><i class="fa-solid fa-graduation-cap mr-2"></i> सेवा फाउंडेशन: गरजू विद्यार्थ्यांसाठी शिष्यवृत्ती व मार्गदर्शन अर्ज सुरू आहेत!</span>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="tel:+919876543210" class="hover:underline flex items-center gap-1"><i class="fa-solid fa-phone"></i> +91 98765 43210</a>
+                <span>|</span>
+                <a href="mailto:info@sevafoundation.org" class="hover:underline flex items-center gap-1"><i class="fa-solid fa-envelope"></i> contact@sevafoundation.org</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center text-white text-xl font-extrabold shadow-md group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900 leading-tight tracking-tight">Seva Foundation</h1>
+                    <p class="text-xs text-brand-600 font-semibold tracking-wide uppercase">सेवा फाउंडेशन • शिक्षण व मार्गदर्शक</p>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center space-x-7 font-medium text-slate-600 text-sm">
+                <a href="#about" class="hover:text-brand-600 transition-colors py-1">आमच्याबद्दल (About)</a>
+                <a href="#programs" class="hover:text-brand-600 transition-colors py-1">उपक्रम (Programs)</a>
+                <a href="#impact" class="hover:text-brand-600 transition-colors py-1">प्रभाव (Impact)</a>
+                <a href="#gallery" class="hover:text-brand-600 transition-colors py-1">गॅलरी (Gallery)</a>
+                <a href="#contact" class="hover:text-brand-600 transition-colors py-1">संपर्क (Contact)</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="hidden sm:flex items-center gap-3">
+                <button onclick="openScholarshipModal()" class="px-4 py-2 text-xs font-semibold text-brand-700 bg-brand-50 hover:bg-brand-100 rounded-lg transition-all border border-brand-200 shadow-xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-file-pen text-brand-600"></i> अर्ज करा (Apply)
+                </button>
+                <button onclick="openDonateModal()" class="px-5 py-2 text-xs font-semibold text-white bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 rounded-lg transition-all shadow-md hover:shadow-lg flex items-center gap-2 transform active:scale-95">
+                    <i class="fa-solid fa-heart"></i> देणगी द्या (Donate)
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobileMenuBtn" class="lg:hidden text-slate-700 hover:text-brand-600 focus:outline-none p-2" aria-label="Open Menu">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileDrawer" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3 shadow-lg">
+            <a href="#about" class="block text-slate-700 font-medium hover:text-brand-600 py-1" onclick="toggleMobileMenu()">आमच्याबद्दल (About)</a>
+            <a href="#programs" class="block text-slate-700 font-medium hover:text-brand-600 py-1" onclick="toggleMobileMenu()">उपक्रम (Programs)</a>
+            <a href="#impact" class="block text-slate-700 font-medium hover:text-brand-600 py-1" onclick="toggleMobileMenu()">प्रभाव (Impact)</a>
+            <a href="#gallery" class="block text-slate-700 font-medium hover:text-brand-600 py-1" onclick="toggleMobileMenu()">गॅलरी (Gallery)</a>
+            <a href="#contact" class="block text-slate-700 font-medium hover:text-brand-600 py-1" onclick="toggleMobileMenu()">संपर्क (Contact)</a>
+            <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                <button onclick="openScholarshipModal(); toggleMobileMenu();" class="w-full py-2.5 text-center text-sm font-semibold text-brand-700 bg-brand-50 rounded-lg border border-brand-200">
+                    <i class="fa-solid fa-file-pen mr-1"></i> शिष्यवृत्ती अर्ज (Scholarship Apply)
+                </button>
+                <button onclick="openDonateModal(); toggleMobileMenu();" class="w-full py-2.5 text-center text-sm font-semibold text-white bg-accent-500 rounded-lg shadow-md">
+                    <i class="fa-solid fa-heart mr-1"></i> देणगी द्या (Donate Now)
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-br from-slate-900 via-brand-800 to-slate-900 text-white overflow-hidden py-16 sm:py-24">
+            <!-- Background Decorative Orbs -->
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-accent-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-semibold text-brand-100">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            नोंदणीकृत एनजीओ (Registered NGO)
+                        </div>
+
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight">
+                            शिक्षणाने बदलूया भविष्य,<br class="hidden sm:inline"> 
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-300 via-amber-200 to-accent-500">
+                                प्रत्येक गरजू विद्यार्थ्याला देऊया पंख!
+                            </span>
+                        </h1>
+
+                        <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                            <strong>सेवा फाउंडेशन (Seva Foundation)</strong> गरजू व हुशार विद्यार्थ्यांना आर्थिक शिष्यवृत्ती (Scholarship) आणि योग्य करिअर मार्गदर्शन (Career Counseling) देऊन त्यांच्या उज्ज्वल भविष्यासाठी कटिबद्ध आहे.
+                        </p>
+
+                        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <button onclick="openDonateModal()" class="w-full sm:w-auto px-8 py-3.5 text-sm font-bold text-white bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 rounded-xl shadow-xl hover:shadow-accent-500/30 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-hand-holding-dollar text-lg"></i> देणगी देऊन मदत करा (Support Us)
+                            </button>
+                            <button onclick="openScholarshipModal()" class="w-full sm:w-auto px-7 py-3.5 text-sm font-bold text-slate-100 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl backdrop-blur-md transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-graduation-cap text-sky-300"></i> शिष्यवृत्तीसाठी अर्ज करा
+                            </button>
+                        </div>
+
+                        <!-- Trust Badges -->
+                        <div class="pt-6 border-t border-white/10 grid grid-cols-3 gap-4 text-center max-w-md mx-auto lg:mx-0">
+                            <div>
+                                <h4 class="text-xl font-bold text-amber-300">100%</h4>
+                                <p class="text-xs text-slate-400">पारदर्शक वापर</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-sky-300">1-on-1</h4>
+                                <p class="text-xs text-slate-400">करिअर काउंसलिंग</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-emerald-400">80G Benefit</h4>
+                                <p class="text-xs text-slate-400">टॅक्स सवलत योग्य</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Card Visual -->
+                    <div class="lg:col-span-5">
+                        <div class="relative bg-gradient-to-b from-white/15 to-white/5 backdrop-blur-xl border border-white/20 p-6 sm:p-8 rounded-3xl shadow-2xl space-y-6">
+                            
+                            <div class="flex items-center gap-4 border-b border-white/10 pb-4">
+                                <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-300 text-2xl">
+                                    <i class="fa-solid fa-quote-left"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">संस्थापिकेचा संदेश</h3>
+                                    <p class="text-xs text-slate-300">तेजश्री सपकाळ (Founder, Seva Foundation)</p>
+                                </div>
+                            </div>
+
+                            <p class="text-slate-200 text-sm italic leading-relaxed">
+                                "कोणताही हुशार व मेहनती विद्यार्थी केवळ पैशांअभावी किंवा योग्य मार्गदर्शनाअभावी मागे राहू नये, हेच सेवा फाउंडेशनचे मुख्य ध्येय आहे. तुमच्या छोट्याशा देणगीमुळे एका विद्यार्थ्याचे संपूर्ण आयुष्य बदलू शकते!"
+                            </p>
+
+                            <div class="bg-white/10 p-4 rounded-2xl border border-white/10 flex items-center justify-between text-xs text-slate-200">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-heart text-red-400 text-base"></i> आजच सेवा कार्यात सहभागी व्हा!</span>
+                                <button onclick="openDonateModal()" class="text-amber-300 font-bold underline hover:text-amber-200">Donate Now →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-16 sm:py-20 bg-white">
+            <div class="container mx-auto px-4">
+                
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">About Seva Foundation</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">आमच्याबद्दल (About Us)</h2>
+                    <p class="text-slate-600 text-sm sm:text-base">सेवा फाउंडेशन ही विद्यार्थ्यांच्या सर्वांगीण विकासासाठी आणि शैक्षणिक प्रगतीसाठी समर्पित सामाजिक संस्था आहे.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Vision -->
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 hover:border-brand-300 hover:shadow-lg transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center text-xl font-bold mb-5 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">दृष्टीकोन (Vision)</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            प्रत्येक विद्यार्थ्याला त्याच्या सामाजिक वा आर्थिक पार्श्वभूमीची पर्वा न करता उच्च दर्जाचे शिक्षण आणि योग्य करिअरच्या संधी उपलब्ध करून देणे.
+                        </p>
+                    </div>
+
+                    <!-- Mission -->
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 hover:border-accent-300 hover:shadow-lg transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-accent-600 flex items-center justify-center text-xl font-bold mb-5 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">ध्येय (Mission)</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            गरजू विद्यार्थ्यांना शिष्यवृत्ती देणे, 1-on-1 करिअर समुपदेशन करणे, स्पर्धा परीक्षा मार्गदर्शन आणि कौशल्य विकास कार्यशाळा आयोजित करणे.
+                        </p>
+                    </div>
+
+                    <!-- Values -->
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 hover:border-emerald-300 hover:shadow-lg transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-bold mb-5 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-shield-heart"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">मूल्ये (Our Values)</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            पारदर्शकता (Transparency), निस्वार्थ सेवा (Selfless Service), समर्पित मार्गदर्शन (Dedicated Counseling) आणि सामाजिक बांधिलकी.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Founder Profile Card -->
+                <div class="mt-12 bg-gradient-to-r from-brand-50 to-sky-50 rounded-2xl p-6 sm:p-8 border border-brand-100 flex flex-col md:flex-row items-center gap-6">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-brand-600 to-accent-500 flex items-center justify-center text-white text-4xl font-extrabold shadow-md flex-shrink-0">
+                        TS
+                    </div>
+                    <div class="space-y-2 text-center md:text-left">
+                        <h4 class="text-xl font-bold text-slate-900">तेजश्री सपकाळ (Tejashri Sapkal)</h4>
+                        <p class="text-xs font-semibold text-brand-600 uppercase tracking-wider">संस्थापिका व अध्यक्षा, सेवा फाउंडेशन</p>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            "शिक्षणाने माणसाचे जीवन उजळून निघते. ग्रामीण आणि शहरातील आर्थिकदृष्ट्या दुर्बल विद्यार्थ्यांना शिक्षणाच्या प्रवाहात टिकवून ठेवण्यासाठी आणि त्यांना योग्य वाट दाखवण्यासाठी आम्ही सेवा फाउंडेशनची स्थापना केली आहे."
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Programs & Key Initiatives -->
+        <section id="programs" class="py-16 sm:py-20 bg-slate-50 border-t border-b border-slate-200">
+            <div class="container mx-auto px-4">
+                
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
+                    <span class="text-xs font-bold uppercase tracking-wider text-accent-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">Our Services</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">मुख्य उपक्रम व सेवा (Our Key Initiatives)</h2>
+                    <p class="text-slate-600 text-sm sm:text-base">विद्यार्थ्यांच्या उज्वल भविष्यासाठी आम्ही खालील तीन प्रमुख क्षेत्रात काम करतो:</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Program 1: Scholarship -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200 flex flex-col justify-between">
+                        <div class="p-7 space-y-4">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center text-2xl font-bold">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">1. विद्यार्थी शिष्यवृत्ती योजना (Scholarship)</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                गरजू, अनाथ, किंवा आर्थिक अडचणीत असलेल्या हुशार विद्यार्थ्यांना शाळा, कॉलेज, कोचिंग क्लासेस व परीक्षा फीसाठी थेट अर्थसहाय्य.
+                            </p>
+                            <ul class="space-y-2 text-xs text-slate-700 font-medium">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> शैक्षणिक साहित्य व पुस्तके वितरण</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> कॉलेज फी व परीक्षा फी सहाय्य</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> गुणवत्ताधारक विद्यार्थ्यांचा सत्कार</li>
+                            </ul>
+                        </div>
+                        <div class="p-6 bg-slate-50 border-t border-slate-100">
+                            <button onclick="openScholarshipModal()" class="w-full py-2.5 text-xs font-bold text-brand-700 bg-brand-100 hover:bg-brand-200 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                अर्जाची माहिती घ्या <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Program 2: Counseling -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200 flex flex-col justify-between">
+                        <div class="p-7 space-y-4">
+                            <div class="w-14 h-14 rounded-2xl bg-amber-50 text-accent-600 flex items-center justify-center text-2xl font-bold">
+                                <i class="fa-solid fa-compass"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">2. करिअर मार्गदर्शन (Career Counseling)</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                १०वी व १२वी नंतर पुढे काय? सायन्स, आर्ट्स, कॉमर्स, डिप्लोमा, आयआयटी, मेडिकल किंवा इतर कौशल्य अभ्यासक्रमांविषयी १-ऑन-१ वैयक्तिक समुपदेशन.
+                            </p>
+                            <ul class="space-y-2 text-xs text-slate-700 font-medium">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> 1-on-1 समुपदेशन सत्रे</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> ॲप्टिट्यूड व आवड तपासणी</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> पालक मार्गदर्शक सत्रे</li>
+                            </ul>
+                        </div>
+                        <div class="p-6 bg-slate-50 border-t border-slate-100">
+                            <button onclick="openScholarshipModal()" class="w-full py-2.5 text-xs font-bold text-accent-700 bg-amber-100 hover:bg-amber-200 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                काउंसलिंग बुक करा <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Program 3: Skill Workshops -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200 flex flex-col justify-between">
+                        <div class="p-7 space-y-4">
+                            <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl font-bold">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">3. कौशल्य विकास व मार्गदर्शन (Skill Workshops)</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                संगणक साक्षरता, इंग्रजी संभाषण (Spoken English), सॉफ्ट स्किल्स आणि मुलाखतीची तयारी (Interview Prep) याबाबत विनामूल्य कार्यशाळा.
+                            </p>
+                            <ul class="space-y-2 text-xs text-slate-700 font-medium">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> सॉफ्ट स्किल कार्यशाळा</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> डिजिटल साक्षरता मोहीम</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> तज्ज्ञ मार्गदर्शकांचे मार्गदर्शन</li>
+                            </ul>
+                        </div>
+                        <div class="p-6 bg-slate-50 border-t border-slate-100">
+                            <button onclick="openScholarshipModal()" class="w-full py-2.5 text-xs font-bold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                वर्कशॉपमध्ये सहभागी व्हा <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Impact Statistics Counter -->
+        <section id="impact" class="py-16 bg-gradient-to-r from-brand-700 to-brand-900 text-white">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    
+                    <div class="space-y-2">
+                        <div class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-amber-300 counter" data-target="150">0</div>
+                        <p class="text-xs sm:text-sm text-slate-200 font-medium">विद्यार्थी समुपदेशन (Counselled)</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-sky-300 counter" data-target="50">0</div>
+                        <p class="text-xs sm:text-sm text-slate-200 font-medium">शिष्यवृत्ती लाभार्थी (Scholarships)</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-emerald-300 counter" data-target="25">0</div>
+                        <p class="text-xs sm:text-sm text-slate-200 font-medium">घेण्यात आलेल्या कार्यशाळा (Workshops)</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-rose-300 counter" data-target="100">0</div>
+                        <p class="text-xs sm:text-sm text-slate-200 font-medium">100% पारदर्शक सेवा (Direct Help)</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Donation Section & Tiers -->
+        <section id="donate" class="py-16 sm:py-20 bg-white">
+            <div class="container mx-auto px-4">
+                
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
+                    <span class="text-xs font-bold uppercase tracking-wider text-emeraldCustom-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Support Our Cause</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">देणगी देऊन मदतीचा हात द्या (Support & Donate)</h2>
+                    <p class="text-slate-600 text-sm sm:text-base">तुमची एक छोटीशी मदत एका गरजू विद्यार्थ्याचे शैक्षणिक स्वप्न साकार करू शकते.</p>
+                </div>
+
+                <!-- Donation Cards Tiers -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    
+                    <!-- Tier 1 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center hover:border-brand-400 hover:shadow-lg transition-all flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="text-2xl font-extrabold text-brand-600 mb-1">₹ 500</div>
+                            <h4 class="font-bold text-slate-900 text-sm">पुस्तके व स्टेशनरी मदत</h4>
+                            <p class="text-slate-500 text-xs mt-2">एका विद्यार्थ्याला संपूर्ण वर्षाची वही, पेन व शैक्षणिक पुस्तके पुरवण्यासाठी मदत.</p>
+                        </div>
+                        <button onclick="openDonateModalWithAmount(500)" class="w-full py-2 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-xl transition-all shadow-xs">
+                            ₹ 500 देणगी द्या
+                        </button>
+                    </div>
+
+                    <!-- Tier 2 -->
+                    <div class="bg-slate-50 border-2 border-amber-400 rounded-2xl p-6 text-center hover:shadow-xl transition-all relative flex flex-col justify-between space-y-4">
+                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-[10px] uppercase tracking-wider font-extrabold px-3 py-0.5 rounded-full shadow-xs">Most Popular</span>
+                        <div>
+                            <div class="text-2xl font-extrabold text-accent-600 mb-1">₹ 2,000</div>
+                            <h4 class="font-bold text-slate-900 text-sm">परीक्षा व कोचिंग फी सहाय्य</h4>
+                            <p class="text-slate-500 text-xs mt-2">१०वी/१२वी बोर्ड परीक्षा फी किंवा स्पर्धा परीक्षा मार्गदर्शन सत्राची फी.</p>
+                        </div>
+                        <button onclick="openDonateModalWithAmount(2000)" class="w-full py-2 text-xs font-bold text-white bg-accent-500 hover:bg-accent-600 rounded-xl transition-all shadow-md">
+                            ₹ 2,000 देणगी द्या
+                        </button>
+                    </div>
+
+                    <!-- Tier 3 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center hover:border-emerald-400 hover:shadow-lg transition-all flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="text-2xl font-extrabold text-emerald-600 mb-1">₹ 5,000</div>
+                            <h4 class="font-bold text-slate-900 text-sm">अर्ध्या वर्षाची शिष्यवृत्ती</h4>
+                            <p class="text-slate-500 text-xs mt-2">एका महाविद्यालयीन विद्यार्थ्याची ६ महिन्यांची फी व करिअर मार्गदर्शन.</p>
+                        </div>
+                        <button onclick="openDonateModalWithAmount(5000)" class="w-full py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition-all shadow-xs">
+                            ₹ 5,000 देणगी द्या
+                        </button>
+                    </div>
+
+                    <!-- Tier 4 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center hover:border-purple-400 hover:shadow-lg transition-all flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="text-2xl font-extrabold text-purple-600 mb-1">इच्छिक रक्कम</div>
+                            <h4 class="font-bold text-slate-900 text-sm">तुमच्या क्षमतेनुसार मदत</h4>
+                            <p class="text-slate-500 text-xs mt-2">तुमच्या सोयीनुसार कोणतीही रक्कम थेट UPI किंवा बँक ट्रान्सफरने द्या.</p>
+                        </div>
+                        <button onclick="openDonateModal()" class="w-full py-2 text-xs font-bold text-slate-800 bg-slate-200 hover:bg-slate-300 rounded-xl transition-all">
+                            इतर रक्कम द्या
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Direct Bank Details Box -->
+                <div class="max-w-3xl mx-auto bg-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-800 grid sm:grid-cols-2 gap-6 items-center">
+                    <div class="space-y-3">
+                        <span class="inline-block bg-amber-500/20 text-amber-300 text-xs font-bold px-3 py-1 rounded-md border border-amber-500/30">Direct Bank Transfer</span>
+                        <h3 class="text-lg font-bold">बँक खाते तपशील (Bank Account Details)</h3>
+                        <p class="text-xs text-slate-400">तुम्ही NEFT / RTGS / IMPS द्वारे थेट देणगी जमा करू शकता.</p>
+                    </div>
+                    
+                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/10 text-xs space-y-2 font-mono">
+                        <p><span class="text-slate-400 font-sans">Account Name:</span> <strong class="text-amber-300 font-sans">Seva Foundation</strong></p>
+                        <p><span class="text-slate-400 font-sans">Account No:</span> 98765432101234</p>
+                        <p><span class="text-slate-400 font-sans">IFSC Code:</span> SBIN0001234</p>
+                        <p><span class="text-slate-400 font-sans">Bank:</span> State Bank of India (SBI)</p>
+                        <p><span class="text-slate-400 font-sans">UPI ID:</span> <span class="text-sky-300">sevafoundation@sbi</span></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Photo Gallery Placeholder -->
+        <section id="gallery" class="py-16 sm:py-20 bg-slate-50 border-t border-slate-200">
+            <div class="container mx-auto px-4">
+                
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-12">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">Our Activities</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">कार्यक्रम व उपक्रम गॅलरी (Gallery)</h2>
+                    <p class="text-slate-600 text-sm">सेवा फाउंडेशनच्या विविध मार्गदर्शन सत्रे आणि कार्यक्रमांची क्षणचित्रे.</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    
+                    <div class="group relative overflow-hidden rounded-2xl bg-slate-200 aspect-video shadow-xs hover:shadow-md transition-all">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-600 to-sky-500 opacity-80 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-4 text-white">
+                            <i class="fa-solid fa-chalkboard-user text-3xl mb-2"></i>
+                            <h5 class="font-bold text-sm">विद्यार्थी समुपदेशन सत्र</h5>
+                            <p class="text-[11px] text-slate-100">1-on-1 Counseling Session</p>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-2xl bg-slate-200 aspect-video shadow-xs hover:shadow-md transition-all">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-amber-600 to-accent-500 opacity-80 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-4 text-white">
+                            <i class="fa-solid fa-graduation-cap text-3xl mb-2"></i>
+                            <h5 class="font-bold text-sm">शिष्यवृत्ती वितरण सोहळा</h5>
+                            <p class="text-[11px] text-slate-100">Scholarship Distribution</p>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-2xl bg-slate-200 aspect-video shadow-xs hover:shadow-md transition-all">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-600 to-teal-500 opacity-80 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-4 text-white">
+                            <i class="fa-solid fa-users text-3xl mb-2"></i>
+                            <h5 class="font-bold text-sm">करिअर गायडन्स वर्कशॉप</h5>
+                            <p class="text-[11px] text-slate-100">Career Guidance Workshop</p>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-2xl bg-slate-200 aspect-video shadow-xs hover:shadow-md transition-all">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-purple-600 to-indigo-500 opacity-80 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-4 text-white">
+                            <i class="fa-solid fa-book-open text-3xl mb-2"></i>
+                            <h5 class="font-bold text-sm">शैक्षणिक पुस्तके वितरण</h5>
+                            <p class="text-[11px] text-slate-100">Book & Kit Distribution</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact" class="py-16 sm:py-20 bg-white">
+            <div class="container mx-auto px-4">
+                
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">Get In Touch</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">आमच्याशी संपर्क साधा (Contact Us)</h2>
+                    <p class="text-slate-600 text-sm">तुम्हाला काही प्रश्न असल्यास किंवा मदतीची गरज असल्यास आम्हाला नक्की संदेश पाठवा.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-10">
+                    
+                    <!-- Contact Information Cards -->
+                    <div class="lg:col-span-5 space-y-6">
+                        
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center text-xl flex-shrink-0">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-base">संस्थापिका (Founder)</h4>
+                                <p class="text-slate-600 text-sm">तेजश्री सपकाळ (Tejashri Sapkal)</p>
+                                <p class="text-xs text-brand-600 font-semibold mt-1">Seva Foundation Founder & President</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl flex-shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-base">फोन / WhatsApp</h4>
+                                <p class="text-slate-600 text-sm">+91 98765 43210</p>
+                                <p class="text-xs text-slate-500 mt-1">सकाळी १०:०० ते संध्याकाळी ६:०० पर्यंत उपलब्ध</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-amber-100 text-accent-600 flex items-center justify-center text-xl flex-shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-base">ईमेल (Email)</h4>
+                                <p class="text-slate-600 text-sm">contact@sevafoundation.org</p>
+                                <p class="text-xs text-slate-500 mt-1">आम्ही २४ तासांच्या आत उत्तर देतो.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Interactive Contact Form -->
+                    <div class="lg:col-span-7 bg-slate-50 p-8 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">संदेश पाठवा (Send Message)</h3>
+                        
+                        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">पूर्ण नाव (Full Name) *</label>
+                                    <input type="text" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm outline-none bg-white" placeholder="उदा. तेजश्री सपकाळ">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">मोबाईल नंबर (Phone) *</label>
+                                    <input type="tel" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm outline-none bg-white" placeholder="9876543210">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">ईमेल आयडी (Email)</label>
+                                <input type="email" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm outline-none bg-white" placeholder="name@example.com">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">विषय (Subject)</label>
+                                <select class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm outline-none bg-white">
+                                    <option>शिष्यवृत्तीबाबत विचारपूस (Scholarship Inquiry)</option>
+                                    <option>करिअर समुपदेशन (Career Counseling)</option>
+                                    <option>देणगी देणे (Donation Inquiry)</option>
+                                    <option>स्वयंसेवक होणे (Become a Volunteer)</option>
+                                    <option>इतर (Other)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">तुमचा संदेश (Your Message) *</label>
+                                <textarea rows="4" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm outline-none bg-white" placeholder="तुमची सविस्तर माहिती लिहा..."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm rounded-xl transition-all shadow-md">
+                                <i class="fa-solid fa-paper-plane mr-2"></i> संदेश पाठवा (Submit Message)
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center text-white text-lg font-bold">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Seva Foundation</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        विद्यार्थी शिष्यवृत्ती आणि करिअर मार्गदर्शनासाठी कार्य करणारी एक विश्वासू बिगर शासकीय संस्था (NGO).
+                    </p>
+                    <p class="text-xs text-amber-300 font-medium">Founder: Tejashri Sapkal</p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-4">जलद दुवे (Quick Links)</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#about" class="hover:text-white transition-colors">आमच्याबद्दल (About Us)</a></li>
+                        <li><a href="#programs" class="hover:text-white transition-colors">शिष्यवृत्ती योजना (Scholarship)</a></li>
+                        <li><a href="#programs" class="hover:text-white transition-colors">करिअर काउंसलिंग (Counseling)</a></li>
+                        <li><a href="#donate" class="hover:text-white transition-colors">देणगी द्या (Donate)</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-4">कायदेशीर व टॅक्स (Trust)</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><span class="text-slate-400">नोंदणीकृत एनजीओ</span></li>
+                        <li><span class="text-slate-400">80G टॅक्स सवलत सुविधा</span></li>
+                        <li><span class="text-slate-400">100% पारदर्शक मदत प्रणाली</span></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-4">सोशल मीडिया (Social Links)</h4>
+                    <div class="flex items-center gap-3 text-lg">
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-pink-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/919876543210" target="_blank" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-emerald-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-2">
+                <p>© 2026 Seva Foundation. All Rights Reserved.</p>
+                <p>Designed with ❤️ for Education & Empowering Students.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Chat Button -->
+    <a href="https://wa.me/919876543210?text=Hello%20Seva%20Foundation,%20I%20want%20to%20know%20more%20about%20Scholarship%20/%20Donation." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl transition-all transform hover:scale-110 active:scale-95 group" title="WhatsApp वर संपर्क साधा">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="absolute right-16 bg-slate-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none">
+            WhatsApp वर बोलूया!
+        </span>
+    </a>
+
+    <!-- Modal 1: Scholarship & Counseling Application Modal -->
+    <div id="scholarshipModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100">
+            <button onclick="closeScholarshipModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl font-bold w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">✕</button>
+            
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900">विद्यार्थी नोंदणी फॉर्म</h3>
+                    <p class="text-xs text-slate-500">शिष्यवृत्ती / करिअर मार्गदर्शनासाठी अर्ज</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleScholarshipSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">विद्यार्थ्याचे पूर्ण नाव (Full Name) *</label>
+                    <input type="text" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 text-sm outline-none" placeholder="उदा. राहुल सचिन पाटील">
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">मोबाईल नंबर (Phone) *</label>
+                        <input type="tel" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 text-sm outline-none" placeholder="9876543210">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">सध्याचे शिक्षण (Class/Degree) *</label>
+                        <input type="text" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 text-sm outline-none" placeholder="उदा. 10th / 12th / B.Sc">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">मदतीचा प्रकार (Help Needed) *</label>
+                    <select required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 text-sm outline-none bg-white">
+                        <option value="">निवडा (Select)</option>
+                        <option value="scholarship">शैक्षणिक शिष्यवृत्ती (Scholarship Fee Assistance)</option>
+                        <option value="counseling">करिअर समुपदेशन (Career Counseling)</option>
+                        <option value="books">पुस्तके व अभ्यास साहित्य (Books & Materials)</option>
+                        <option value="both">शिष्यवृत्ती व करिअर मार्गदर्शन दोन्ही</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">तुमची अडचण किंवा तपशील (Brief Details)</label>
+                    <textarea rows="3" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 text-sm outline-none" placeholder="तुमच्या गरजेबद्दल थोडक्यात माहिती लिहा..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm rounded-xl transition-all shadow-md">
+                    अर्ज सबमिट करा (Submit Application)
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Interactive Donation Modal with Dynamic UPI QR Code -->
+    <div id="donateModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100">
+            <button onclick="closeDonateModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl font-bold w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">✕</button>
+
+            <div class="text-center space-y-2 mb-6">
+                <div class="w-12 h-12 rounded-full bg-amber-100 text-accent-600 flex items-center justify-center text-2xl font-bold mx-auto">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">Seva Foundation देणगी</h3>
+                <p class="text-xs text-slate-500">QR Code स्कॅन करा किंवा बँक ट्रान्सफर वापरा</p>
+            </div>
+
+            <!-- Amount Selection Buttons -->
+            <div class="space-y-4 mb-6">
+                <label class="block text-xs font-semibold text-slate-700 text-center">देणगी रक्कम निवडा (Select Amount):</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="selectModalAmount(500)" class="modal-amt-btn py-2 text-xs font-bold border border-slate-300 rounded-xl hover:border-accent-500 hover:bg-amber-50 text-slate-700">₹ 500</button>
+                    <button onclick="selectModalAmount(2000)" class="modal-amt-btn py-2 text-xs font-bold border border-slate-300 rounded-xl hover:border-accent-500 hover:bg-amber-50 text-slate-700">₹ 2,000</button>
+                    <button onclick="selectModalAmount(5000)" class="modal-amt-btn py-2 text-xs font-bold border border-slate-300 rounded-xl hover:border-accent-500 hover:bg-amber-50 text-slate-700">₹ 5,000</button>
+                </div>
+                <input type="number" id="customAmountInput" oninput="updateQrCode()" placeholder="किंवा इतर रक्कम टाका (Rs.)" class="w-full px-4 py-2 rounded-xl border border-slate-300 text-center text-sm outline-none focus:ring-2 focus:ring-accent-500">
+            </div>
+
+            <!-- Dynamic UPI QR Code Box -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center space-y-3">
+                <div id="qrCodeContainer" class="bg-white p-3 rounded-xl inline-block shadow-xs border border-slate-200">
+                    <img id="upiQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=sevafoundation@sbi%26pn=Seva%20Foundation%26cu=INR" alt="UPI QR Code" class="w-36 h-36 mx-auto">
+                </div>
+                <p class="text-xs text-slate-600 font-medium">GPay / PhonePe / Paytm / BHIM ने स्कॅन करा</p>
+                <div class="text-[11px] font-mono text-slate-500 bg-white py-1 px-3 rounded-lg border border-slate-200 inline-block">
+                    UPI ID: <strong class="text-slate-800">sevafoundation@sbi</strong>
+                </div>
+            </div>
+
+            <div class="mt-5 text-center">
+                <button onclick="confirmDonationDone()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl transition-all shadow-md">
+                    <i class="fa-solid fa-circle-check mr-1"></i> मी देणगी ट्रान्सफर केली आहे
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
