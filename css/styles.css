@@ -1,10 +1,12 @@
-/* Custom CSS Styles for Swarajya Seva Foundation (Serving the Soil Theme) */
+/* Custom CSS Styles for Swarajya Seva Foundation (Matched to Official Logo Palette) */
 
 :root {
-    --soil-terracotta: #9a3412;
-    --soil-green: #15803d;
-    --soil-gold: #d97706;
-    --soil-bg: #fdfbf7;
+    --logo-navy: #0f2942;
+    --logo-navy-dark: #071524;
+    --logo-saffron: #e67e22;
+    --logo-saffron-dark: #d35400;
+    --logo-green: #27ae60;
+    --logo-cream: #fcfbf7;
 }
 
 @keyframes fadeIn {
@@ -22,27 +24,33 @@
     animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Custom Scrollbar for Earthy Theme */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #f7f2e8;
+    background: #fcfbf7;
 }
 ::-webkit-scrollbar-thumb {
-    background: #9a3412;
+    background: #0f2942;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #7c2d12;
+    background: #e67e22;
 }
 
 /* Admin Table Custom Styling */
 tr:nth-child(even) {
-    background-color: #fdfbf7;
+    background-color: #fcfbf7;
 }
 
 #languageSelect option {
-    background-color: #431407;
+    background-color: #071524;
     color: #ffffff;
+}
+
+/* Logo Image Styling */
+.brand-logo-img {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+    object-fit: contain;
 }

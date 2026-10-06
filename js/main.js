@@ -1,13 +1,13 @@
 /**
  * Main JavaScript File for Swarajya Seva Foundation
- * Features: Trust Deed Alignment, Admin Mode Toggle, LocalStorage Persistence & Google Sheets CSV Data Exporter
+ * Features: Official Logo Matching, LocalStorage Data Persistence, Admin PIN (1234), and Google Sheets CSV Downloader
  */
 
-// Initial Sample Seed Data for Applicants & Donors (Persisted in LocalStorage)
+// Initial Seed Data for Applicants & Inquiries (Saved in LocalStorage)
 const defaultApplicants = [
     {
         id: "SSF-2026-01",
-        date: "2026-09-28",
+        date: "2026-10-01",
         name: "Rahul Prakash Patil",
         dob: "2004-05-14",
         phone: "9876543210",
@@ -16,11 +16,11 @@ const defaultApplicants = [
         college: "Government Engineering College, Pune",
         course: "B.Tech (Computer Engineering)",
         amount: "15000",
-        reason: "Father faces agricultural debt. Needs semester fee support."
+        reason: "Father faces agricultural debt. Needs semester exam fee support."
     },
     {
         id: "SSF-2026-02",
-        date: "2026-09-30",
+        date: "2026-10-03",
         name: "Sneha Kadam",
         dob: "2005-08-22",
         phone: "9123456780",
@@ -33,22 +33,22 @@ const defaultApplicants = [
     }
 ];
 
-const defaultDonations = [
+const defaultInquiries = [
     {
-        id: "DON-1001",
+        date: "2026-10-04",
         name: "Anand Deshmukh",
-        amount: "5000",
-        sector: "Education & Awareness (40%)",
-        date: "2026-09-29",
-        mode: "UPI (GPay)"
+        phone: "9021751543",
+        email: "anand@example.com",
+        sector: "Education / Scholarship",
+        message: "Interested in sponsoring a engineering student."
     },
     {
-        id: "DON-1002",
+        date: "2026-10-05",
         name: "Sunita Kulkarni",
-        amount: "10000",
-        sector: "Agricultural Empowerment (30%)",
-        date: "2026-10-01",
-        mode: "Bank Transfer (NEFT)"
+        phone: "9822001122",
+        email: "sunita@example.com",
+        sector: "Agriculture / Soil Health",
+        message: "Want to organize organic soil testing drive in our village."
     }
 ];
 
@@ -61,8 +61,8 @@ function initStorage() {
     if (!localStorage.getItem('ssf_applicants')) {
         localStorage.setItem('ssf_applicants', JSON.stringify(defaultApplicants));
     }
-    if (!localStorage.getItem('ssf_donations')) {
-        localStorage.setItem('ssf_donations', JSON.stringify(defaultDonations));
+    if (!localStorage.getItem('ssf_inquiries')) {
+        localStorage.setItem('ssf_inquiries', JSON.stringify(defaultInquiries));
     }
 }
 
@@ -70,8 +70,8 @@ function getApplicants() {
     return JSON.parse(localStorage.getItem('ssf_applicants') || '[]');
 }
 
-function getDonations() {
-    return JSON.parse(localStorage.getItem('ssf_donations') || '[]');
+function getInquiries() {
+    return JSON.parse(localStorage.getItem('ssf_inquiries') || '[]');
 }
 
 /* --- Admin Portal Toggle & Authentication --- */
@@ -99,59 +99,59 @@ function toggleAdminMode() {
 
 function switchAdminTab(tab) {
     const appTab = document.getElementById('adminApplicantsTab');
-    const donTab = document.getElementById('adminDonationsTab');
+    const inqTab = document.getElementById('adminInquiriesTab');
     const btnApp = document.getElementById('tabBtnApplicants');
-    const btnDon = document.getElementById('tabBtnDonations');
+    const btnInq = document.getElementById('tabBtnInquiries');
 
     if (tab === 'applicants') {
         appTab.classList.remove('hidden');
-        donTab.classList.add('hidden');
-        btnApp.className = "py-3 px-6 border-b-2 border-soil-600 text-soil-600 font-bold";
-        btnDon.className = "py-3 px-6 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-bold";
+        inqTab.classList.add('hidden');
+        btnApp.className = "py-3 px-6 border-b-2 border-saffron-500 text-saffron-600 font-bold";
+        btnInq.className = "py-3 px-6 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-bold";
     } else {
-        donTab.classList.remove('hidden');
+        inqTab.classList.remove('hidden');
         appTab.classList.add('hidden');
-        btnDon.className = "py-3 px-6 border-b-2 border-soil-600 text-soil-600 font-bold";
+        btnInq.className = "py-3 px-6 border-b-2 border-saffron-500 text-saffron-600 font-bold";
         btnApp.className = "py-3 px-6 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-bold";
     }
 }
 
 function renderAdminTables() {
     const applicants = getApplicants();
-    const donations = getDonations();
+    const inquiries = getInquiries();
 
     document.getElementById('applicantCount').innerText = applicants.length;
-    document.getElementById('donorCount').innerText = donations.length;
+    document.getElementById('inquiryCount').innerText = inquiries.length;
 
     // Render Applicants Table
     const appTbody = document.getElementById('applicantsTableBody');
     appTbody.innerHTML = applicants.map(a => `
         <tr class="hover:bg-slate-50">
             <td class="p-3 font-mono text-slate-500"><strong>${a.id}</strong><br><span class="text-[10px]">${a.date}</span></td>
-            <td class="p-3 font-bold text-slate-900">${a.name}</td>
+            <td class="p-3 font-bold text-navy-700">${a.name}</td>
             <td class="p-3">${a.dob}</td>
             <td class="p-3">${a.phone}</td>
             <td class="p-3">${a.occupation}</td>
-            <td class="p-3"><strong>${a.college}</strong><br><span class="text-soil-600">${a.course}</span></td>
-            <td class="p-3 font-extrabold text-emerald-700">₹ ${parseInt(a.amount).toLocaleString('en-IN')}</td>
+            <td class="p-3"><strong>${a.college}</strong><br><span class="text-saffron-600">${a.course}</span></td>
+            <td class="p-3 font-extrabold text-sprout-600">₹ ${parseInt(a.amount).toLocaleString('en-IN')}</td>
             <td class="p-3 text-slate-600 max-w-xs truncate" title="${a.reason}">${a.reason}</td>
         </tr>
     `).join('');
 
-    // Render Donations Table
-    const donTbody = document.getElementById('donationsTableBody');
-    donTbody.innerHTML = donations.map(d => `
+    // Render Inquiries Table
+    const inqTbody = document.getElementById('inquiriesTableBody');
+    inqTbody.innerHTML = inquiries.map(i => `
         <tr class="hover:bg-slate-50">
-            <td class="p-3 font-bold text-slate-900">${d.name}<br><span class="text-[10px] text-slate-400 font-mono">${d.id}</span></td>
-            <td class="p-3 font-extrabold text-emerald-700">₹ ${parseInt(d.amount).toLocaleString('en-IN')}</td>
-            <td class="p-3"><span class="bg-soil-100 text-soil-800 text-[10px] font-bold px-2 py-0.5 rounded-md">${d.sector}</span></td>
-            <td class="p-3">${d.date}</td>
-            <td class="p-3">${d.mode}</td>
+            <td class="p-3 font-mono text-slate-500">${i.date}</td>
+            <td class="p-3 font-bold text-navy-700">${i.name}</td>
+            <td class="p-3">${i.phone}<br><span class="text-[11px] text-slate-500">${i.email || '-'}</span></td>
+            <td class="p-3"><span class="bg-saffron-50 text-saffron-700 text-[10px] font-bold px-2 py-0.5 rounded-md">${i.sector}</span></td>
+            <td class="p-3 text-slate-600">${i.message}</td>
         </tr>
     `).join('');
 }
 
-/* --- Export Data to CSV (Compatible with Google Sheets & Excel) --- */
+/* --- Export Data to CSV (Optimized for Google Sheets & Microsoft Excel) --- */
 function downloadApplicantsCSV() {
     const applicants = getApplicants();
     if (applicants.length === 0) {
@@ -159,7 +159,7 @@ function downloadApplicantsCSV() {
         return;
     }
 
-    let csvContent = "\uFEFF"; // UTF-8 BOM for proper Excel / Google Sheets unicode rendering
+    let csvContent = "\uFEFF"; // UTF-8 BOM for proper Unicode rendering in Google Sheets & Excel
     csvContent += "Ref ID,Application Date,Student Full Name,Birth Date,Contact Phone,Parent Occupation,Current Status,College Name,Course Name,Amount Needed (INR),Reason\n";
 
     applicants.forEach(a => {
@@ -182,29 +182,29 @@ function downloadApplicantsCSV() {
     triggerCSVDownload(csvContent, `Swarajya_Seva_Foundation_Applicants_${new Date().toISOString().slice(0, 10)}.csv`);
 }
 
-function downloadDonationsCSV() {
-    const donations = getDonations();
-    if (donations.length === 0) {
-        alert("No donation audit data available to export.");
+function downloadInquiriesCSV() {
+    const inquiries = getInquiries();
+    if (inquiries.length === 0) {
+        alert("No contact inquiry data available to export.");
         return;
     }
 
     let csvContent = "\uFEFF";
-    csvContent += "Transaction ID,Donor Name,Amount (INR),Allocated Sector,Date,Payment Mode\n";
+    csvContent += "Date,Name,Phone Number,Email Address,Sector of Interest,Message\n";
 
-    donations.forEach(d => {
+    inquiries.forEach(i => {
         const row = [
-            `"${d.id}"`,
-            `"${d.name}"`,
-            `"${d.amount}"`,
-            `"${d.sector}"`,
-            `"${d.date}"`,
-            `"${d.mode}"`
+            `"${i.date}"`,
+            `"${i.name}"`,
+            `"${i.phone}"`,
+            `"${i.email || ''}"`,
+            `"${i.sector}"`,
+            `"${i.message.replace(/"/g, '""')}"`
         ];
         csvContent += row.join(",") + "\n";
     });
 
-    triggerCSVDownload(csvContent, `Swarajya_Seva_Foundation_Donor_Audit_${new Date().toISOString().slice(0, 10)}.csv`);
+    triggerCSVDownload(csvContent, `Swarajya_Seva_Foundation_Inquiries_${new Date().toISOString().slice(0, 10)}.csv`);
 }
 
 function triggerCSVDownload(content, fileName) {
@@ -218,7 +218,7 @@ function triggerCSVDownload(content, fileName) {
     document.body.removeChild(link);
 }
 
-/* --- Scholarship Submission Handler --- */
+/* --- Scholarship Application Handler --- */
 function handleScholarshipSubmit(e) {
     e.preventDefault();
     
@@ -240,8 +240,29 @@ function handleScholarshipSubmit(e) {
     apps.unshift(newApp);
     localStorage.setItem('ssf_applicants', JSON.stringify(apps));
 
-    alert('Thank you! Your Scholarship Application has been recorded. Reference ID: ' + newApp.id + '. Admin can view and export this entry to Google Sheets.');
+    alert('Thank you! Your Scholarship Application has been submitted. Reference ID: ' + newApp.id + '. Admin can view and download this entry for Google Sheets.');
     closeScholarshipModal();
+    e.target.reset();
+}
+
+/* --- Contact Form Submission Handler --- */
+function handleContactSubmit(e) {
+    e.preventDefault();
+    
+    const newInquiry = {
+        date: new Date().toISOString().slice(0, 10),
+        name: document.getElementById('contactName').value,
+        phone: document.getElementById('contactPhone').value,
+        email: document.getElementById('contactEmail').value,
+        sector: document.getElementById('contactSector').value,
+        message: document.getElementById('contactMessage').value
+    };
+
+    const inqs = getInquiries();
+    inqs.unshift(newInquiry);
+    localStorage.setItem('ssf_inquiries', JSON.stringify(inqs));
+
+    alert('Thank you for contacting Swarajya Seva Foundation! Your message has been saved and can be exported by Admin to Google Sheets (+91 90217 51543).');
     e.target.reset();
 }
 
@@ -289,21 +310,7 @@ function closeDonateModal() {
 }
 
 function confirmDonationDone() {
-    const donorName = prompt("Thank you for your donation! Please enter your Name for receipt logging:") || "Anonymous Donor";
-    const newDonation = {
-        id: "DON-" + (Math.floor(Math.random() * 9000) + 1000),
-        name: donorName,
-        amount: "5000",
-        sector: "General Trust Deed Fund",
-        date: new Date().toISOString().slice(0, 10),
-        mode: "UPI Scan"
-    };
-
-    const dons = getDonations();
-    dons.unshift(newDonation);
-    localStorage.setItem('ssf_donations', JSON.stringify(dons));
-
-    alert('Heartfelt thanks! Your contribution has been recorded in the Audit log.');
+    alert('Heartfelt thanks for supporting Swarajya Seva Foundation! Your contribution empowers education, health and agricultural progress.');
     closeDonateModal();
 }
 
@@ -312,10 +319,4 @@ function expressSponsorInterest(studentName, refNo) {
     if (sponsorName) {
         alert(`Thank you ${sponsorName}! Swarajya Seva Foundation will obtain formal consent from ${studentName} and connect you directly (+91 90217 51543).`);
     }
-}
-
-function handleContactSubmit(e) {
-    e.preventDefault();
-    alert('Thank you for contacting Swarajya Seva Foundation! We will respond within 24 hours (+91 90217 51543).');
-    e.target.reset();
 }
