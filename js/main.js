@@ -1,129 +1,261 @@
 /**
  * Main JavaScript File for Swarajya Seva Foundation
- * Features: Multilingual (English/Marathi/Hindi) Switcher, Sponsor Matching, Modals & Tracking
+ * Features: Trust Deed Alignment, Admin Mode Toggle, LocalStorage Persistence & Google Sheets CSV Data Exporter
  */
 
+// Initial Sample Seed Data for Applicants & Donors (Persisted in LocalStorage)
+const defaultApplicants = [
+    {
+        id: "SSF-2026-01",
+        date: "2026-09-28",
+        name: "Rahul Prakash Patil",
+        dob: "2004-05-14",
+        phone: "9876543210",
+        occupation: "Small Scale Farmer",
+        status: "Completed 12th Science",
+        college: "Government Engineering College, Pune",
+        course: "B.Tech (Computer Engineering)",
+        amount: "15000",
+        reason: "Father faces agricultural debt. Needs semester fee support."
+    },
+    {
+        id: "SSF-2026-02",
+        date: "2026-09-30",
+        name: "Sneha Kadam",
+        dob: "2005-08-22",
+        phone: "9123456780",
+        occupation: "Daily Wage Agriculture Laborer",
+        status: "Completed 12th HSC",
+        college: "Institute of Nursing Sciences",
+        course: "B.Sc Nursing",
+        amount: "12000",
+        reason: "Mother is sole breadwinner. Needs admission fee assistance."
+    }
+];
+
+const defaultDonations = [
+    {
+        id: "DON-1001",
+        name: "Anand Deshmukh",
+        amount: "5000",
+        sector: "Education & Awareness (40%)",
+        date: "2026-09-29",
+        mode: "UPI (GPay)"
+    },
+    {
+        id: "DON-1002",
+        name: "Sunita Kulkarni",
+        amount: "10000",
+        sector: "Agricultural Empowerment (30%)",
+        date: "2026-10-01",
+        mode: "Bank Transfer (NEFT)"
+    }
+];
+
 document.addEventListener('DOMContentLoaded', () => {
+    initStorage();
     setupMobileMenu();
 });
 
-/* --- Multilingual Dictionary Engine --- */
-const translations = {
-    en: {
-        ngo_title: "Swarajya Seva Foundation",
-        ngo_slogan: "Serving the Soil • Education | Agriculture | Health",
-        nav_about: "About Us",
-        nav_sectors: "Our Sectors",
-        nav_transparency: "Funding Transparency",
-        nav_sponsors: "Sponsor a Student",
-        nav_contact: "Contact",
-        btn_apply_scholarship: "Apply for Scholarship",
-        btn_donate: "Donate Now",
-        hero_tagline_badge: "Official Registered NGO • Slogan: Serving the Soil",
-        hero_h1_1: "Serving the Soil,",
-        hero_h1_2: "Empowering Education, Agriculture & Health",
-        hero_desc: "Swarajya Seva Foundation (Founded by Tejashri Sapkal) works relentlessly to provide Educational Scholarships, Farmer & Agricultural Support, and Healthcare assistance with 100% transparent funding.",
-        hero_btn_scholarship: "Apply for Scholarship",
-        hero_btn_donate: "Support / Donate",
-        badge_scholarships: "Scholarship & Counseling",
-        badge_agri: "Farmer & Soil Health",
-        badge_health: "Free Medical Camps",
-        founder_card_title: "Founder's Vision",
-        founder_quote: '"Through Swarajya Seva Foundation, our mission is to nourish the roots of our society — by serving the soil that feeds us, educating the youth who shape our future, and caring for the health of every family."',
-        sectors_badge: "Our Focus Areas",
-        sectors_h2: "Major Work Sectors",
-        sectors_desc: "Empowering society through three interconnected pillars of sustainable growth.",
-        sector1_title: "1. Education & Scholarships",
-        sector1_desc: "Providing financial scholarship support, 1-on-1 career guidance, exam fee assistance, and study materials for deserving students.",
-        sector2_title: "2. Agriculture (Serving the Soil)",
-        sector2_desc: "Promoting organic farming, soil testing guidance, farmer training workshops, and sustainable agricultural techniques for rural prosperity.",
-        sector3_title: "3. Healthcare & Medical Assistance",
-        sector3_desc: "Organizing free health check-up camps, blood donation drives, emergency medical relief, and preventive healthcare awareness.",
-        transparency_badge: "Full Transparency",
-        transparency_h2: "Funding Utilization & Beneficiary Tracker",
-        transparency_desc: "At Swarajya Seva Foundation, every rupee contributed by donors is tracked and assigned directly to verified beneficiaries with complete transparency."
-    },
-    mr: {
-        ngo_title: "स्वराज्य सेवा फाउंडेशन",
-        ngo_slogan: "मातीची सेवा • शिक्षण | शेती | आरोग्य",
-        nav_about: "आमच्याबद्दल",
-        nav_sectors: "कार्यक्षेत्रे",
-        nav_transparency: "निधी पारदर्शकता",
-        nav_sponsors: "विद्यार्थ्याला दत्तक घ्या",
-        nav_contact: "संपर्क",
-        btn_apply_scholarship: "शिष्यवृत्ती अर्ज करा",
-        btn_donate: "देणगी द्या",
-        hero_tagline_badge: "अधिकृत नोंदणीकृत एनजीओ • ब्रीदवाक्य: मातीची सेवा (Serving the Soil)",
-        hero_h1_1: "मातीची सेवा आणि",
-        hero_h1_2: "शिक्षण, शेती व आरोग्याचा विकास!",
-        hero_desc: "स्वराज्य सेवा फाउंडेशन (संस्थापिका: तेजश्री सपकाळ) गरजू विद्यार्थ्यांना शिष्यवृत्ती, शेतकऱ्यांना कृषी मार्गदर्शन आणि रुग्णांना वैद्यकीय मदत १००% पारदर्शकतेने पुरवते.",
-        hero_btn_scholarship: "शिष्यवृत्तीसाठी अर्ज करा",
-        hero_btn_donate: "देणगी देऊन मदत करा",
-        badge_scholarships: "शिष्यवृत्ती व समुपदेशन",
-        badge_agri: "शेतकरी व मातीचे आरोग्य",
-        badge_health: "मोफत आरोग्य शिबिरे",
-        founder_card_title: "संस्थापिकेची दृष्टी",
-        founder_quote: '"आपल्या समाजाच्या पाळ्यामुळ्या घट्ट करणे हेच स्वराज्य सेवा फाउंडेशनचे उद्दिष्ट आहे — आपल्याला अन्न देणाऱ्या मातीची सेवा करणे, देशाचे भविष्य घडवणाऱ्या तरुणांना शिक्षण देणे आणि सर्वांचे आरोग्य जपणे."',
-        sectors_badge: "प्रमुख कार्यक्षेत्रे",
-        sectors_h2: "आमचे ३ मुख्य विभाग",
-        sectors_desc: "शाश्वत विकासाच्या तीन मजबूत स्तंभांद्वारे समाजाची प्रगती करणे.",
-        sector1_title: "१. शिक्षण व शिष्यवृत्ती",
-        sector1_desc: "गरजू व हुशार विद्यार्थ्यांना थेट शैक्षणिक शिष्यवृत्ती, १-ऑन-१ करिअर समुपदेशन, परीक्षा फी मदत व अभ्यास साहित्य देणे.",
-        sector2_title: "२. शेती (मातीची सेवा - Serving the Soil)",
-        sector2_desc: "सेंद्रिय शेती प्रोत्साहन, माती परीक्षण मार्गदर्शन, शेतकरी कार्यशाळा आणि आधुनिक कृषी तंत्रज्ञान मार्गदर्शन.",
-        sector3_title: "३. आरोग्य व वैद्यकीय मदत",
-        sector3_desc: "मोफत आरोग्य तपासणी शिबिरे, रक्तदान मोहीम, आपत्कालीन वैद्यकीय मदत आणि आरोग्य जनजागृती."
-    },
-    hi: {
-        ngo_title: "स्वराज्य सेवा फाउंडेशन",
-        ngo_slogan: "मिट्टी की सेवा • शिक्षा | कृषि | स्वास्थ्य",
-        nav_about: "हमारे बारे में",
-        nav_sectors: "कार्य क्षेत्र",
-        nav_transparency: "फंड पारदर्शिता",
-        nav_sponsors: "छात्र को स्पॉन्सर करें",
-        nav_contact: "संपर्क",
-        btn_apply_scholarship: "छात्रवृत्ति आवेदन",
-        btn_donate: "दान करें",
-        hero_tagline_badge: "पंजीकृत एनजीओ • नारा: मिट्टी की सेवा (Serving the Soil)",
-        hero_h1_1: "मिट्टी की सेवा और",
-        hero_h1_2: "शिक्षा, कृषि एवं स्वास्थ्य का विकास",
-        hero_desc: "स्वराज्य सेवा फाउंडेशन (संस्थापक: तेजश्री सपकाल) छात्रों को छात्रवृत्ति, किसानों को कृषि सहायता और स्वास्थ्य सहायता 100% पारदर्शिता के साथ प्रदान करता है।",
-        hero_btn_scholarship: "छात्रवृत्ति के लिए आवेदन करें",
-        hero_btn_donate: "दान देकर सहयोग करें",
-        badge_scholarships: "छात्रवृत्ति एवं मार्गदर्शन",
-        badge_agri: "किसान एवं मृदा स्वास्थ्य",
-        badge_health: "मुफ्त स्वास्थ्य शिविर",
-        founder_card_title: "संस्थापक का संदेश",
-        founder_quote: '"स्वराज्य सेवा फाउंडेशन का मुख्य उद्देश्य समाज की जड़ों को मजबूत करना है — अन्न देने वाली मिट्टी की सेवा करना, भविष्य बनाने वाले युवाओं को शिक्षा देना और हर परिवार के स्वास्थ्य की देखभाल करना।"'
+function initStorage() {
+    if (!localStorage.getItem('ssf_applicants')) {
+        localStorage.setItem('ssf_applicants', JSON.stringify(defaultApplicants));
     }
-};
-
-function changeLanguage(lang) {
-    const dict = translations[lang] || translations.en;
-    document.querySelectorAll('[data-i18n]').forEach(elem => {
-        const key = elem.getAttribute('data-i18n');
-        if (dict[key]) {
-            elem.innerText = dict[key];
-        }
-    });
+    if (!localStorage.getItem('ssf_donations')) {
+        localStorage.setItem('ssf_donations', JSON.stringify(defaultDonations));
+    }
 }
 
-/* --- Mobile Menu Drawer --- */
+function getApplicants() {
+    return JSON.parse(localStorage.getItem('ssf_applicants') || '[]');
+}
+
+function getDonations() {
+    return JSON.parse(localStorage.getItem('ssf_donations') || '[]');
+}
+
+/* --- Admin Portal Toggle & Authentication --- */
+let isAdminLoggedIn = false;
+
+function toggleAdminMode() {
+    if (!isAdminLoggedIn) {
+        const pin = prompt("Owner/Admin Access - Enter Admin PIN (Default PIN: 1234):");
+        if (pin === "1234") {
+            isAdminLoggedIn = true;
+            document.getElementById('adminToggleText').innerText = "🌐 Exit Admin Mode";
+            document.getElementById('userPublicView').classList.add('hidden');
+            document.getElementById('adminDashboardView').classList.remove('hidden');
+            renderAdminTables();
+        } else if (pin !== null) {
+            alert("Incorrect Admin PIN! Please enter 1234.");
+        }
+    } else {
+        isAdminLoggedIn = false;
+        document.getElementById('adminToggleText').innerText = "🔒 Owner/Admin Portal";
+        document.getElementById('adminDashboardView').classList.add('hidden');
+        document.getElementById('userPublicView').classList.remove('hidden');
+    }
+}
+
+function switchAdminTab(tab) {
+    const appTab = document.getElementById('adminApplicantsTab');
+    const donTab = document.getElementById('adminDonationsTab');
+    const btnApp = document.getElementById('tabBtnApplicants');
+    const btnDon = document.getElementById('tabBtnDonations');
+
+    if (tab === 'applicants') {
+        appTab.classList.remove('hidden');
+        donTab.classList.add('hidden');
+        btnApp.className = "py-3 px-6 border-b-2 border-soil-600 text-soil-600 font-bold";
+        btnDon.className = "py-3 px-6 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-bold";
+    } else {
+        donTab.classList.remove('hidden');
+        appTab.classList.add('hidden');
+        btnDon.className = "py-3 px-6 border-b-2 border-soil-600 text-soil-600 font-bold";
+        btnApp.className = "py-3 px-6 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-bold";
+    }
+}
+
+function renderAdminTables() {
+    const applicants = getApplicants();
+    const donations = getDonations();
+
+    document.getElementById('applicantCount').innerText = applicants.length;
+    document.getElementById('donorCount').innerText = donations.length;
+
+    // Render Applicants Table
+    const appTbody = document.getElementById('applicantsTableBody');
+    appTbody.innerHTML = applicants.map(a => `
+        <tr class="hover:bg-slate-50">
+            <td class="p-3 font-mono text-slate-500"><strong>${a.id}</strong><br><span class="text-[10px]">${a.date}</span></td>
+            <td class="p-3 font-bold text-slate-900">${a.name}</td>
+            <td class="p-3">${a.dob}</td>
+            <td class="p-3">${a.phone}</td>
+            <td class="p-3">${a.occupation}</td>
+            <td class="p-3"><strong>${a.college}</strong><br><span class="text-soil-600">${a.course}</span></td>
+            <td class="p-3 font-extrabold text-emerald-700">₹ ${parseInt(a.amount).toLocaleString('en-IN')}</td>
+            <td class="p-3 text-slate-600 max-w-xs truncate" title="${a.reason}">${a.reason}</td>
+        </tr>
+    `).join('');
+
+    // Render Donations Table
+    const donTbody = document.getElementById('donationsTableBody');
+    donTbody.innerHTML = donations.map(d => `
+        <tr class="hover:bg-slate-50">
+            <td class="p-3 font-bold text-slate-900">${d.name}<br><span class="text-[10px] text-slate-400 font-mono">${d.id}</span></td>
+            <td class="p-3 font-extrabold text-emerald-700">₹ ${parseInt(d.amount).toLocaleString('en-IN')}</td>
+            <td class="p-3"><span class="bg-soil-100 text-soil-800 text-[10px] font-bold px-2 py-0.5 rounded-md">${d.sector}</span></td>
+            <td class="p-3">${d.date}</td>
+            <td class="p-3">${d.mode}</td>
+        </tr>
+    `).join('');
+}
+
+/* --- Export Data to CSV (Compatible with Google Sheets & Excel) --- */
+function downloadApplicantsCSV() {
+    const applicants = getApplicants();
+    if (applicants.length === 0) {
+        alert("No applicants data available to export.");
+        return;
+    }
+
+    let csvContent = "\uFEFF"; // UTF-8 BOM for proper Excel / Google Sheets unicode rendering
+    csvContent += "Ref ID,Application Date,Student Full Name,Birth Date,Contact Phone,Parent Occupation,Current Status,College Name,Course Name,Amount Needed (INR),Reason\n";
+
+    applicants.forEach(a => {
+        const row = [
+            `"${a.id}"`,
+            `"${a.date}"`,
+            `"${a.name}"`,
+            `"${a.dob}"`,
+            `"${a.phone}"`,
+            `"${a.occupation}"`,
+            `"${a.status}"`,
+            `"${a.college}"`,
+            `"${a.course}"`,
+            `"${a.amount}"`,
+            `"${a.reason.replace(/"/g, '""')}"`
+        ];
+        csvContent += row.join(",") + "\n";
+    });
+
+    triggerCSVDownload(csvContent, `Swarajya_Seva_Foundation_Applicants_${new Date().toISOString().slice(0, 10)}.csv`);
+}
+
+function downloadDonationsCSV() {
+    const donations = getDonations();
+    if (donations.length === 0) {
+        alert("No donation audit data available to export.");
+        return;
+    }
+
+    let csvContent = "\uFEFF";
+    csvContent += "Transaction ID,Donor Name,Amount (INR),Allocated Sector,Date,Payment Mode\n";
+
+    donations.forEach(d => {
+        const row = [
+            `"${d.id}"`,
+            `"${d.name}"`,
+            `"${d.amount}"`,
+            `"${d.sector}"`,
+            `"${d.date}"`,
+            `"${d.mode}"`
+        ];
+        csvContent += row.join(",") + "\n";
+    });
+
+    triggerCSVDownload(csvContent, `Swarajya_Seva_Foundation_Donor_Audit_${new Date().toISOString().slice(0, 10)}.csv`);
+}
+
+function triggerCSVDownload(content, fileName) {
+    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+/* --- Scholarship Submission Handler --- */
+function handleScholarshipSubmit(e) {
+    e.preventDefault();
+    
+    const newApp = {
+        id: "SSF-2026-0" + (getApplicants().length + 1),
+        date: new Date().toISOString().slice(0, 10),
+        name: document.getElementById('appFullName').value,
+        dob: document.getElementById('appDob').value,
+        phone: document.getElementById('appPhone').value,
+        occupation: document.getElementById('appOccupation').value,
+        status: document.getElementById('appStatus').value,
+        college: document.getElementById('appCollege').value,
+        course: document.getElementById('appCourse').value,
+        amount: document.getElementById('appAmount').value,
+        reason: document.getElementById('appReason').value
+    };
+
+    const apps = getApplicants();
+    apps.unshift(newApp);
+    localStorage.setItem('ssf_applicants', JSON.stringify(apps));
+
+    alert('Thank you! Your Scholarship Application has been recorded. Reference ID: ' + newApp.id + '. Admin can view and export this entry to Google Sheets.');
+    closeScholarshipModal();
+    e.target.reset();
+}
+
+/* --- Mobile Menu & Modals --- */
 function setupMobileMenu() {
     const mobileBtn = document.getElementById('mobileMenuBtn');
-    if (mobileBtn) {
-        mobileBtn.addEventListener('click', toggleMobileMenu);
-    }
+    if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
 }
 
 function toggleMobileMenu() {
     const mobileDrawer = document.getElementById('mobileDrawer');
-    if (mobileDrawer) {
-        mobileDrawer.classList.toggle('hidden');
-    }
+    if (mobileDrawer) mobileDrawer.classList.toggle('hidden');
 }
 
-/* --- Scholarship Application Modal --- */
 function openScholarshipModal() {
     const modal = document.getElementById('scholarshipModal');
     if (modal) {
@@ -140,34 +272,6 @@ function closeScholarshipModal() {
     }
 }
 
-function handleScholarshipSubmit(e) {
-    e.preventDefault();
-    alert('Thank you! Your Scholarship Application has been received by Swarajya Seva Foundation. Our team will verify your details and connect with you shortly.');
-    closeScholarshipModal();
-    e.target.reset();
-}
-
-/* --- Sponsor Interest Direct Workflow --- */
-function expressSponsorInterest(studentName, refNo) {
-    const sponsorName = prompt(`You are sponsoring ${studentName} (${refNo}). Please enter your Name / Phone Number to express interest:`);
-    if (sponsorName) {
-        alert(`Thank you ${sponsorName}! Swarajya Seva Foundation will take formal consent from ${studentName} and connect you directly (+91 90217 51543).`);
-    }
-}
-
-/* --- Donation Tracker --- */
-function trackDonationStatus() {
-    const input = document.getElementById('donorTrackInput');
-    const resultDiv = document.getElementById('trackResult');
-    if (input && input.value.trim() !== '') {
-        resultDiv.classList.remove('hidden');
-        resultDiv.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Transaction Verified! Status: Funds Assigned to Verified Student Scholarship (#SSF-2026).`;
-    } else {
-        alert('Please enter your Donor Transaction ID or Email ID.');
-    }
-}
-
-/* --- General Donation Modal --- */
 function openDonateModal() {
     const modal = document.getElementById('donateModal');
     if (modal) {
@@ -185,8 +289,29 @@ function closeDonateModal() {
 }
 
 function confirmDonationDone() {
-    alert('Heartfelt thanks for contributing to Swarajya Seva Foundation! Your support empowers education, soil health, and medical aid.');
+    const donorName = prompt("Thank you for your donation! Please enter your Name for receipt logging:") || "Anonymous Donor";
+    const newDonation = {
+        id: "DON-" + (Math.floor(Math.random() * 9000) + 1000),
+        name: donorName,
+        amount: "5000",
+        sector: "General Trust Deed Fund",
+        date: new Date().toISOString().slice(0, 10),
+        mode: "UPI Scan"
+    };
+
+    const dons = getDonations();
+    dons.unshift(newDonation);
+    localStorage.setItem('ssf_donations', JSON.stringify(dons));
+
+    alert('Heartfelt thanks! Your contribution has been recorded in the Audit log.');
     closeDonateModal();
+}
+
+function expressSponsorInterest(studentName, refNo) {
+    const sponsorName = prompt(`You are sponsoring ${studentName} (${refNo}). Please enter your Name / Phone Number:`);
+    if (sponsorName) {
+        alert(`Thank you ${sponsorName}! Swarajya Seva Foundation will obtain formal consent from ${studentName} and connect you directly (+91 90217 51543).`);
+    }
 }
 
 function handleContactSubmit(e) {
