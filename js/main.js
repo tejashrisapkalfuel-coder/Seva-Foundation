@@ -1,9 +1,9 @@
 /**
  * Main JavaScript File for Swarajya Seva Foundation
- * Features: Official Logo Matching, LocalStorage Data Persistence, Admin PIN (1234), and Google Sheets CSV Downloader
+ * Features: 3-Step Donation Checkout Wizard, Persistent Logo Header, Admin PIN (1234), and Google Sheets CSV Downloader
  */
 
-// Initial Seed Data for Applicants & Inquiries (Saved in LocalStorage)
+// Initial Seed Data for Applicants & Donors (Saved in LocalStorage)
 const defaultApplicants = [
     {
         id: "SSF-2026-01",
@@ -33,22 +33,32 @@ const defaultApplicants = [
     }
 ];
 
-const defaultInquiries = [
+const defaultDonations = [
     {
-        date: "2026-10-04",
+        id: "DON-1001",
+        date: "2026-10-05",
         name: "Anand Deshmukh",
         phone: "9021751543",
         email: "anand@example.com",
-        sector: "Education / Scholarship",
-        message: "Interested in sponsoring a engineering student."
+        address: "MG Road, Deccan",
+        city: "Pune",
+        pincode: "411004",
+        state: "Maharashtra",
+        amount: "5000",
+        mode: "UPI (GPay)"
     },
     {
-        date: "2026-10-05",
+        id: "DON-1002",
+        date: "2026-10-07",
         name: "Sunita Kulkarni",
         phone: "9822001122",
         email: "sunita@example.com",
-        sector: "Agriculture / Soil Health",
-        message: "Want to organize organic soil testing drive in our village."
+        address: "Kothrud Depot",
+        city: "Pune",
+        pincode: "411038",
+        state: "Maharashtra",
+        amount: "10000",
+        mode: "Bank Transfer (NEFT)"
     }
 ];
 
@@ -61,8 +71,8 @@ function initStorage() {
     if (!localStorage.getItem('ssf_applicants')) {
         localStorage.setItem('ssf_applicants', JSON.stringify(defaultApplicants));
     }
-    if (!localStorage.getItem('ssf_inquiries')) {
-        localStorage.setItem('ssf_inquiries', JSON.stringify(defaultInquiries));
+    if (!localStorage.getItem('ssf_donations')) {
+        localStorage.setItem('ssf_donations', JSON.stringify(defaultDonations));
     }
 }
 
@@ -70,8 +80,8 @@ function getApplicants() {
     return JSON.parse(localStorage.getItem('ssf_applicants') || '[]');
 }
 
-function getInquiries() {
-    return JSON.parse(localStorage.getItem('ssf_inquiries') || '[]');
+function getDonations() {
+    return JSON.parse(localStorage.getItem('ssf_donations') || '[]');
 }
 
 /* --- Admin Portal Toggle & Authentication --- */
@@ -99,29 +109,29 @@ function toggleAdminMode() {
 
 function switchAdminTab(tab) {
     const appTab = document.getElementById('adminApplicantsTab');
-    const inqTab = document.getElementById('adminInquiriesTab');
+    const donTab = document.getElementById('adminDonationsTab');
     const btnApp = document.getElementById('tabBtnApplicants');
-    const btnInq = document.getElementById('tabBtnInquiries');
+    const btnDon = document.getElementById('tabBtnDonations');
 
     if (tab === 'applicants') {
         appTab.classList.remove('hidden');
-        inqTab.classList.add('hidden');
-        btnApp.className = "py-3 px-6 border-b-2 border-saffron-500 text-saffron-600 font-bold";
-        btnInq.className = "py-3 px-6 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-bold";
+        donTab.classList.add('hidden');
+        btnApp.className = "py-3 px-6 border-b-2 border-sunOrange-600 text-sunOrange-600 font-extrabold";
+        btnDon.className = "py-3 px-6 border-b-2 border-transparent text-navy-800 font-bold hover:text-sunOrange-600";
     } else {
-        inqTab.classList.remove('hidden');
+        donTab.classList.remove('hidden');
         appTab.classList.add('hidden');
-        btnInq.className = "py-3 px-6 border-b-2 border-saffron-500 text-saffron-600 font-bold";
-        btnApp.className = "py-3 px-6 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-bold";
+        btnDon.className = "py-3 px-6 border-b-2 border-sunOrange-600 text-sunOrange-600 font-extrabold";
+        btnApp.className = "py-3 px-6 border-b-2 border-transparent text-navy-800 font-bold hover:text-sunOrange-600";
     }
 }
 
 function renderAdminTables() {
     const applicants = getApplicants();
-    const inquiries = getInquiries();
+    const donations = getDonations();
 
     document.getElementById('applicantCount').innerText = applicants.length;
-    document.getElementById('inquiryCount').innerText = inquiries.length;
+    document.getElementById('donorCount').innerText = donations.length;
 
     // Render Applicants Table
     const appTbody = document.getElementById('applicantsTableBody');
@@ -132,21 +142,22 @@ function renderAdminTables() {
             <td class="p-3">${a.dob}</td>
             <td class="p-3">${a.phone}</td>
             <td class="p-3">${a.occupation}</td>
-            <td class="p-3"><strong>${a.college}</strong><br><span class="text-saffron-600">${a.course}</span></td>
+            <td class="p-3"><strong>${a.college}</strong><br><span class="text-sunOrange-600">${a.course}</span></td>
             <td class="p-3 font-extrabold text-sprout-600">₹ ${parseInt(a.amount).toLocaleString('en-IN')}</td>
             <td class="p-3 text-slate-600 max-w-xs truncate" title="${a.reason}">${a.reason}</td>
         </tr>
     `).join('');
 
-    // Render Inquiries Table
-    const inqTbody = document.getElementById('inquiriesTableBody');
-    inqTbody.innerHTML = inquiries.map(i => `
+    // Render Donations & Address Audit Table
+    const donTbody = document.getElementById('donationsTableBody');
+    donTbody.innerHTML = donations.map(d => `
         <tr class="hover:bg-slate-50">
-            <td class="p-3 font-mono text-slate-500">${i.date}</td>
-            <td class="p-3 font-bold text-navy-700">${i.name}</td>
-            <td class="p-3">${i.phone}<br><span class="text-[11px] text-slate-500">${i.email || '-'}</span></td>
-            <td class="p-3"><span class="bg-saffron-50 text-saffron-700 text-[10px] font-bold px-2 py-0.5 rounded-md">${i.sector}</span></td>
-            <td class="p-3 text-slate-600">${i.message}</td>
+            <td class="p-3 font-mono text-slate-500"><strong>${d.id}</strong><br><span class="text-[10px]">${d.date}</span></td>
+            <td class="p-3 font-bold text-navy-700">${d.name}</td>
+            <td class="p-3">${d.phone}<br><span class="text-[11px] text-slate-500">${d.email || '-'}</span></td>
+            <td class="p-3">${d.address || '-'}, ${d.city || ''} (${d.pincode || ''}) ${d.state || ''}</td>
+            <td class="p-3 font-extrabold text-sprout-600">₹ ${parseInt(d.amount).toLocaleString('en-IN')}</td>
+            <td class="p-3"><span class="bg-sunflower-100 text-navy-900 text-[10px] font-bold px-2 py-0.5 rounded-md">${d.mode}</span></td>
         </tr>
     `).join('');
 }
@@ -182,29 +193,34 @@ function downloadApplicantsCSV() {
     triggerCSVDownload(csvContent, `Swarajya_Seva_Foundation_Applicants_${new Date().toISOString().slice(0, 10)}.csv`);
 }
 
-function downloadInquiriesCSV() {
-    const inquiries = getInquiries();
-    if (inquiries.length === 0) {
-        alert("No contact inquiry data available to export.");
+function downloadDonationsCSV() {
+    const donations = getDonations();
+    if (donations.length === 0) {
+        alert("No donor audit data available to export.");
         return;
     }
 
     let csvContent = "\uFEFF";
-    csvContent += "Date,Name,Phone Number,Email Address,Sector of Interest,Message\n";
+    csvContent += "Donation Ref ID,Date,Donor Full Name,Contact Phone,Email Address,Address,City,Pincode,State,Donation Amount (INR),Payment Mode\n";
 
-    inquiries.forEach(i => {
+    donations.forEach(d => {
         const row = [
-            `"${i.date}"`,
-            `"${i.name}"`,
-            `"${i.phone}"`,
-            `"${i.email || ''}"`,
-            `"${i.sector}"`,
-            `"${i.message.replace(/"/g, '""')}"`
+            `"${d.id}"`,
+            `"${d.date}"`,
+            `"${d.name}"`,
+            `"${d.phone}"`,
+            `"${d.email}"`,
+            `"${(d.address || '').replace(/"/g, '""')}"`,
+            `"${d.city || ''}"`,
+            `"${d.pincode || ''}"`,
+            `"${d.state || ''}"`,
+            `"${d.amount}"`,
+            `"${d.mode}"`
         ];
         csvContent += row.join(",") + "\n";
     });
 
-    triggerCSVDownload(csvContent, `Swarajya_Seva_Foundation_Inquiries_${new Date().toISOString().slice(0, 10)}.csv`);
+    triggerCSVDownload(csvContent, `Swarajya_Seva_Foundation_Donor_Audit_${new Date().toISOString().slice(0, 10)}.csv`);
 }
 
 function triggerCSVDownload(content, fileName) {
@@ -218,7 +234,130 @@ function triggerCSVDownload(content, fileName) {
     document.body.removeChild(link);
 }
 
-/* --- Scholarship Application Handler --- */
+/* --- 3-STEP DONATION CHECKOUT WIZARD LOGIC --- */
+let currentDonateStep = 1;
+
+function openDonateModal() {
+    const modal = document.getElementById('donateModal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        goToDonateStep(1);
+    }
+}
+
+function closeDonateModal() {
+    const modal = document.getElementById('donateModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function selectDonatePreset(amount) {
+    const input = document.getElementById('donateAmountInput');
+    if (input) {
+        input.value = amount;
+    }
+
+    document.querySelectorAll('.donate-preset-btn').forEach(btn => {
+        if (btn.innerText.includes(amount.toLocaleString('en-IN'))) {
+            btn.className = "donate-preset-btn active py-3 px-2 text-xs font-black border-2 border-sunOrange-500 bg-amber-50 text-sunOrange-600 rounded-xl transition-all";
+        } else {
+            btn.className = "donate-preset-btn py-3 px-2 text-xs font-black border-2 border-slate-200 rounded-xl hover:border-sunOrange-500 text-navy-900 transition-all";
+        }
+    });
+
+    updateCheckoutAmount();
+}
+
+function updateCheckoutAmount() {
+    const amtInput = document.getElementById('donateAmountInput');
+    const amt = amtInput && amtInput.value ? parseFloat(amtInput.value) : 5000;
+    
+    // Update Checkout Display
+    const display = document.getElementById('checkoutAmountDisplay');
+    if (display) {
+        display.innerText = '₹ ' + (amt > 0 ? amt.toLocaleString('en-IN') : '0');
+    }
+
+    // Update Dynamic UPI QR Code
+    const qrImg = document.getElementById('dynamicUpiQr');
+    if (qrImg) {
+        const upiString = `upi://pay?pa=swarajyasevafoundation@sbi&pn=Swarajya%20Seva%20Foundation&am=${amt}&cu=INR`;
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiString)}`;
+    }
+}
+
+function goToDonateStep(step) {
+    currentDonateStep = step;
+
+    // Step Visibility
+    document.getElementById('donateStep1').classList.toggle('hidden', step !== 1);
+    document.getElementById('donateStep2').classList.toggle('hidden', step !== 2);
+    document.getElementById('donateStep3').classList.toggle('hidden', step !== 3);
+
+    // Indicator Styles
+    const ind1 = document.getElementById('stepIndicator1');
+    const ind2 = document.getElementById('stepIndicator2');
+    const ind3 = document.getElementById('stepIndicator3');
+
+    if (step === 1) {
+        ind1.className = "flex items-center gap-1.5 text-sunOrange-600 font-extrabold";
+        ind2.className = "flex items-center gap-1.5 text-slate-400 font-extrabold";
+        ind3.className = "flex items-center gap-1.5 text-slate-400 font-extrabold";
+    } else if (step === 2) {
+        ind1.className = "flex items-center gap-1.5 text-sprout-600 font-extrabold";
+        ind2.className = "flex items-center gap-1.5 text-sunOrange-600 font-extrabold";
+        ind3.className = "flex items-center gap-1.5 text-slate-400 font-extrabold";
+    } else if (step === 3) {
+        ind1.className = "flex items-center gap-1.5 text-sprout-600 font-extrabold";
+        ind2.className = "flex items-center gap-1.5 text-sprout-600 font-extrabold";
+        ind3.className = "flex items-center gap-1.5 text-sunOrange-600 font-extrabold";
+        updateCheckoutAmount();
+    }
+}
+
+function validateAndGoToStep3() {
+    const name = document.getElementById('donorName').value;
+    const phone = document.getElementById('donorPhone').value;
+    const email = document.getElementById('donorEmail').value;
+
+    if (!name || !phone || !email) {
+        alert("Please fill in your Full Name, Contact Phone, and Email ID.");
+        return;
+    }
+
+    goToDonateStep(3);
+}
+
+function confirmDonationDone() {
+    const amtInput = document.getElementById('donateAmountInput');
+    const amount = amtInput && amtInput.value ? amtInput.value : "5000";
+
+    const newDonation = {
+        id: "DON-" + (Math.floor(Math.random() * 9000) + 1000),
+        date: new Date().toISOString().slice(0, 10),
+        name: document.getElementById('donorName').value || "Generous Donor",
+        phone: document.getElementById('donorPhone').value || "-",
+        email: document.getElementById('donorEmail').value || "-",
+        address: document.getElementById('donorAddress').value || "-",
+        city: document.getElementById('donorCity').value || "-",
+        pincode: document.getElementById('donorPincode').value || "-",
+        state: document.getElementById('donorState').value || "-",
+        amount: amount,
+        mode: "UPI / QR Checkout"
+    };
+
+    const dons = getDonations();
+    dons.unshift(newDonation);
+    localStorage.setItem('ssf_donations', JSON.stringify(dons));
+
+    alert('Heartfelt thanks, ' + newDonation.name + '! Your donation record of ₹' + parseFloat(amount).toLocaleString('en-IN') + ' has been saved in Swarajya Seva Foundation Audit Database. Admin can view & export this data to Google Sheets.');
+    closeDonateModal();
+}
+
+/* --- Scholarship Submission Handler --- */
 function handleScholarshipSubmit(e) {
     e.preventDefault();
     
@@ -245,28 +384,21 @@ function handleScholarshipSubmit(e) {
     e.target.reset();
 }
 
-/* --- Contact Form Submission Handler --- */
+/* --- Contact & Sponsor Handlers --- */
 function handleContactSubmit(e) {
     e.preventDefault();
-    
-    const newInquiry = {
-        date: new Date().toISOString().slice(0, 10),
-        name: document.getElementById('contactName').value,
-        phone: document.getElementById('contactPhone').value,
-        email: document.getElementById('contactEmail').value,
-        sector: document.getElementById('contactSector').value,
-        message: document.getElementById('contactMessage').value
-    };
-
-    const inqs = getInquiries();
-    inqs.unshift(newInquiry);
-    localStorage.setItem('ssf_inquiries', JSON.stringify(inqs));
-
-    alert('Thank you for contacting Swarajya Seva Foundation! Your message has been saved and can be exported by Admin to Google Sheets (+91 90217 51543).');
+    alert('Thank you for contacting Swarajya Seva Foundation! Your message has been saved (+91 90217 51543).');
     e.target.reset();
 }
 
-/* --- Mobile Menu & Modals --- */
+function expressSponsorInterest(studentName, refNo) {
+    const sponsorName = prompt(`You are sponsoring ${studentName} (${refNo}). Please enter your Name / Phone Number:`);
+    if (sponsorName) {
+        alert(`Thank you ${sponsorName}! Swarajya Seva Foundation will obtain formal consent from ${studentName} and connect you directly (+91 90217 51543).`);
+    }
+}
+
+/* --- Mobile Menu --- */
 function setupMobileMenu() {
     const mobileBtn = document.getElementById('mobileMenuBtn');
     if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
@@ -290,33 +422,5 @@ function closeScholarshipModal() {
     if (modal) {
         modal.classList.add('hidden');
         document.body.style.overflow = 'auto';
-    }
-}
-
-function openDonateModal() {
-    const modal = document.getElementById('donateModal');
-    if (modal) {
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeDonateModal() {
-    const modal = document.getElementById('donateModal');
-    if (modal) {
-        modal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-}
-
-function confirmDonationDone() {
-    alert('Heartfelt thanks for supporting Swarajya Seva Foundation! Your contribution empowers education, health and agricultural progress.');
-    closeDonateModal();
-}
-
-function expressSponsorInterest(studentName, refNo) {
-    const sponsorName = prompt(`You are sponsoring ${studentName} (${refNo}). Please enter your Name / Phone Number:`);
-    if (sponsorName) {
-        alert(`Thank you ${sponsorName}! Swarajya Seva Foundation will obtain formal consent from ${studentName} and connect you directly (+91 90217 51543).`);
     }
 }

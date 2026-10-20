@@ -1,12 +1,14 @@
-/* Custom CSS Styles for Swarajya Seva Foundation (Matched to Official Logo Palette) */
+/* Custom CSS Styles for Swarajya Seva Foundation (3-Step Checkout & Sunflower Theme) */
 
 :root {
-    --logo-navy: #0f2942;
-    --logo-navy-dark: #071524;
-    --logo-saffron: #e67e22;
-    --logo-saffron-dark: #d35400;
-    --logo-green: #27ae60;
-    --logo-cream: #fcfbf7;
+    --sunflower-bg: #fffdf5;
+    --sunflower-yellow: #f59e0b;
+    --sunflower-gold: #fbbf24;
+    --sunflower-orange: #ea580c;
+    --sunflower-orange-light: #f97316;
+    --brand-navy: #0f2942;
+    --brand-navy-dark: #0c2340;
+    --brand-green: #16a34a;
 }
 
 @keyframes fadeIn {
@@ -29,23 +31,23 @@
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #fcfbf7;
+    background: #fffdf5;
 }
 ::-webkit-scrollbar-thumb {
     background: #0f2942;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #e67e22;
+    background: #ea580c;
 }
 
 /* Admin Table Custom Styling */
 tr:nth-child(even) {
-    background-color: #fcfbf7;
+    background-color: #fffdf5;
 }
 
 #languageSelect option {
-    background-color: #071524;
+    background-color: #0c2340;
     color: #ffffff;
 }
 
@@ -53,4 +55,11 @@ tr:nth-child(even) {
 .brand-logo-img {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
     object-fit: contain;
+}
+
+/* Donate Preset Button Active Styles */
+.donate-preset-btn.active {
+    border-color: #ea580c !important;
+    background-color: #fff7ed !important;
+    color: #ea580c !important;
 }

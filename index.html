@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swarajya Seva Foundation | Serving the soil - Education, Health & Agriculture</title>
-    <meta name="description" content="Swarajya Seva Foundation (Founded by Tejashri Sapkal). Serving the soil: 40% Education & Awareness, 30% Health & Social Welfare, 30% Agricultural Empowerment.">
-    
+    <title>Swarajya Seva Foundation | Serving the Soil – Education, Health & Agriculture</title>
+    <meta name="description" content="Swarajya Seva Foundation (Founded by Tejashri Sapkal) – Building Careers Through Skills, Innovation, and Purpose. Empowering students, farmers, and communities across Maharashtra.">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,226 +13,302 @@
             theme: {
                 extend: {
                     colors: {
+                        sunflower: {
+                            50: '#fffdf5',
+                            100: '#fef9c3',
+                            200: '#fef08a',
+                            400: '#facc15',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        sunOrange: {
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                        },
                         navy: {
                             50: '#f0f4f8',
                             100: '#d9e2ec',
-                            500: '#1b3a57',
-                            700: '#0f2942', // Official Logo Navy
-                            800: '#0c2340',
-                            900: '#071524',
+                            700: '#1e3a8a',
+                            800: '#1e3463',
+                            900: '#0f2240',
+                            950: '#070f20',
                         },
-                        saffron: {
-                            50: '#fffcf5',
-                            100: '#fef5e7',
-                            400: '#f39c12',
-                            500: '#e67e22', // Official Logo Saffron
-                            600: '#d35400',
-                            700: '#a04000',
+                        teal: {
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
                         },
-                        sprout: {
-                            500: '#27ae60', // Official Logo Green
-                            600: '#219653',
-                            700: '#1e824c',
+                        sage: {
+                            400: '#86efac',
+                            500: '#4ade80',
+                            600: '#16a34a',
                         },
-                        cream: {
-                            50: '#fcfbf7',
-                            100: '#f7f5ed',
-                            200: '#eee9da',
+                        slate2: {
+                            600: '#4b6080',
                         }
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        cursive: ['"Dancing Script"', 'cursive'],
                     }
                 }
             }
         }
     </script>
-    
-    <!-- Google Fonts & FontAwesome -->
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
-</head>
-<body class="bg-cream-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Top Navigation Bar with Contact Info, Language Switcher & Admin Portal Toggle -->
-    <div class="bg-navy-900 text-white text-xs sm:text-sm py-2.5 px-4 border-b border-navy-800">
+    <style>
+        /* ---- GLOBAL PALETTE ---- */
+        :root {
+            --col-blue: #1e3463;
+            --col-orange: #ea580c;
+            --col-gold: #d97706;
+            --col-teal: #0d9488;
+            --col-sage: #16a34a;
+            --col-amber-soft: #fef3c7;
+        }
+
+        body { background: #fdfaf3; }
+
+        /* ---- CURSIVE SLOGAN ---- */
+        .cursive-slogan {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        /* ---- NAV TABS ---- */
+        .tab-btn { transition: all 0.2s ease; }
+        .tab-btn.active {
+            color: var(--col-orange);
+            border-bottom: 3px solid var(--col-orange);
+        }
+
+        /* ---- ACCORDION ---- */
+        .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+        .accordion-body.open { max-height: 600px; }
+
+        /* ---- PILLAR CARD ---- */
+        .pillar-card {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .pillar-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px -10px rgba(30,52,99,0.18); }
+        .pillar-card img { width: 100%; height: 200px; object-fit: cover; }
+
+        /* ---- PARTNER CARD ---- */
+        .partner-logo {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: filter 0.3s, opacity 0.3s;
+        }
+        .partner-logo:hover { filter: grayscale(0%); opacity: 1; }
+
+        /* ---- DONATE PRESET BUTTONS ---- */
+        .donate-preset-btn.active {
+            border-color: var(--col-orange) !important;
+            background: #fff7ed;
+            color: var(--col-orange);
+        }
+
+        /* ---- BRAND LOGO ---- */
+        .brand-logo-img { object-fit: contain; }
+
+        /* ---- SCROLL FADE ANIMATION ---- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fadeUp 0.6s ease both; }
+
+        /* ---- HERO GRADIENT ---- */
+        .hero-bg {
+            background: linear-gradient(135deg, #fef9c3 0%, #fff7ed 40%, #fdf4d0 100%);
+        }
+
+        /* ---- SECTION DIVIDER ---- */
+        .wave-divider { display: block; width: 100%; overflow: hidden; line-height: 0; }
+    </style>
+</head>
+<body class="font-sans antialiased text-navy-800 flex flex-col min-h-screen">
+
+    <!-- ══════════ TOP UTILITY BAR ══════════ -->
+    <div class="bg-navy-900 text-white text-xs py-2.5 px-4">
         <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            
             <div class="flex items-center space-x-4">
-                <a href="tel:+919021751543" class="hover:text-saffron-400 flex items-center gap-1.5 font-medium transition-colors">
-                    <i class="fa-solid fa-phone text-sprout-500"></i> +91 90217 51543
+                <a href="tel:+919021751543" class="hover:text-sunflower-400 flex items-center gap-1.5 font-medium transition-colors">
+                    <i class="fa-solid fa-phone text-sunflower-400"></i> +91 90217 51543
                 </a>
-                <span>|</span>
-                <a href="mailto:swarajyasevafoundation@gmail.com" class="hover:text-saffron-400 flex items-center gap-1.5 font-medium transition-colors">
-                    <i class="fa-solid fa-envelope text-sky-400"></i> swarajyasevafoundation@gmail.com
+                <span class="text-navy-700">|</span>
+                <a href="mailto:swarajyasevafoundation@gmail.com" class="hover:text-sunflower-400 flex items-center gap-1.5 font-medium transition-colors">
+                    <i class="fa-solid fa-envelope text-sunflower-400"></i> swarajyasevafoundation@gmail.com
                 </a>
             </div>
-
             <div class="flex items-center gap-3">
-                <span class="text-saffron-400 font-bold text-xs italic flex items-center gap-1">
-                    <i class="fa-solid fa-seedling text-sprout-500"></i> Serving the soil
-                </span>
-                <span>|</span>
-                
                 <!-- Multi-Language Switcher -->
-                <div class="flex items-center gap-1 bg-navy-800 px-2 py-1 rounded-lg border border-navy-700">
+                <div class="flex items-center gap-1 bg-navy-800/60 px-2 py-1 rounded-lg">
                     <i class="fa-solid fa-globe text-slate-300 text-xs"></i>
                     <select id="languageSelect" onchange="changeLanguage(this.value)" class="bg-transparent text-white text-xs font-semibold focus:outline-none cursor-pointer">
-                        <option value="en" class="bg-navy-900 text-white">English</option>
-                        <option value="mr" class="bg-navy-900 text-white">मराठी (Marathi)</option>
-                        <option value="hi" class="bg-navy-900 text-white">हिंदी (Hindi)</option>
+                        <option value="en">English</option>
+                        <option value="mr">मराठी</option>
+                        <option value="hi">हिंदी</option>
                     </select>
                 </div>
-
-                <span>|</span>
-                <!-- Admin / Owner Mode Toggle Button -->
-                <button onclick="toggleAdminMode()" id="adminToggleBtn" class="bg-gradient-to-r from-saffron-500 to-saffron-600 hover:from-saffron-600 hover:to-saffron-700 text-white font-extrabold text-xs px-3.5 py-1.5 rounded-lg shadow-md flex items-center gap-1.5 transition-all transform active:scale-95">
+                <span class="text-navy-700">|</span>
+                <button onclick="toggleAdminMode()" id="adminToggleBtn" class="bg-sunOrange-600 hover:bg-sunOrange-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all">
                     <i class="fa-solid fa-user-shield"></i> <span id="adminToggleText">🔒 Owner/Admin Portal</span>
                 </button>
             </div>
-
         </div>
     </div>
 
-    <!-- Main Navigation Bar -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-cream-200 shadow-xs transition-all duration-300">
-        <div class="container mx-auto px-4 py-2.5 flex justify-between items-center">
-            
-            <!-- Logo Branding matching official image -->
+    <!-- ══════════ MAIN NAVIGATION ══════════ -->
+    <header class="sticky top-0 z-40 bg-white/96 backdrop-blur-md border-b border-amber-100 shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+
+            <!-- Logo Branding -->
             <a href="#" class="flex items-center gap-3 group">
                 <img src="assets/images/logo.png" alt="Swarajya Seva Foundation Logo" class="w-12 h-12 sm:w-14 sm:h-14 brand-logo-img group-hover:scale-105 transition-transform">
                 <div>
-                    <h1 class="text-lg sm:text-xl font-extrabold text-navy-700 leading-tight tracking-tight uppercase" data-i18n="ngo_title">
+                    <h1 class="text-base sm:text-lg font-extrabold text-navy-900 leading-tight tracking-tight uppercase">
                         Swarajya Seva Foundation
                     </h1>
-                    <p class="text-[11px] text-saffron-600 font-bold tracking-wider italic" data-i18n="ngo_slogan">
-                        Serving the soil • Education (40%) | Health (30%) | Agriculture (30%)
+                    <p class="cursive-slogan text-sunOrange-600 text-sm sm:text-base leading-none mt-0.5">
+                        Serving the soil
                     </p>
                 </div>
             </a>
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden lg:flex items-center space-x-6 font-medium text-slate-700 text-sm">
-                <a href="#about" class="hover:text-saffron-500 transition-colors py-1" data-i18n="nav_about">About & Vision</a>
-                <a href="#pillars" class="hover:text-saffron-500 transition-colors py-1" data-i18n="nav_pillars">3 Core Pillars</a>
-                <a href="#transparency" class="hover:text-saffron-500 transition-colors py-1" data-i18n="nav_transparency">Funding & Budget Audit</a>
-                <a href="#sponsors" class="hover:text-saffron-500 transition-colors py-1" data-i18n="nav_sponsors">Sponsor a Student</a>
-                <a href="#contact" class="hover:text-saffron-500 transition-colors py-1" data-i18n="nav_contact">Contact</a>
+            <!-- Desktop Nav Tabs -->
+            <nav class="hidden lg:flex items-center space-x-1 font-semibold text-navy-800 text-sm">
+                <a href="#about" class="tab-btn px-4 py-3 hover:text-sunOrange-600 transition-colors rounded-t-lg">About</a>
+                <a href="#programs" class="tab-btn px-4 py-3 hover:text-sunOrange-600 transition-colors rounded-t-lg">Our Programs</a>
+                <a href="#pillars" class="tab-btn px-4 py-3 hover:text-sunOrange-600 transition-colors rounded-t-lg">Our Pillars</a>
+                <a href="#transparency" class="tab-btn px-4 py-3 hover:text-sunOrange-600 transition-colors rounded-t-lg">Transparency</a>
+                <a href="#sponsors" class="tab-btn px-4 py-3 hover:text-sunOrange-600 transition-colors rounded-t-lg">Sponsor a Student</a>
+                <a href="#contact" class="tab-btn px-4 py-3 hover:text-sunOrange-600 transition-colors rounded-t-lg">Contact</a>
             </nav>
 
             <!-- Action Buttons -->
             <div class="hidden sm:flex items-center gap-3">
-                <button onclick="openScholarshipModal()" class="px-4 py-2 text-xs font-bold text-navy-700 bg-cream-100 hover:bg-cream-200 rounded-xl transition-all border border-saffron-400/40 shadow-xs flex items-center gap-1.5">
-                    <i class="fa-solid fa-graduation-cap text-saffron-500"></i> <span data-i18n="btn_apply_scholarship">Apply for Scholarship</span>
+                <button onclick="openScholarshipModal()" class="px-4 py-2 text-xs font-bold text-navy-800 bg-amber-50 hover:bg-sunflower-200 rounded-xl transition-all border border-sunflower-400 flex items-center gap-1.5">
+                    <i class="fa-solid fa-graduation-cap text-sunOrange-600"></i> Apply Scholarship
                 </button>
-                <button onclick="openDonateModal()" class="px-5 py-2 text-xs font-bold text-white bg-gradient-to-r from-navy-700 via-saffron-500 to-saffron-600 hover:opacity-95 rounded-xl transition-all shadow-md hover:shadow-lg flex items-center gap-2 transform active:scale-95">
-                    <i class="fa-solid fa-heart text-saffron-400"></i> <span data-i18n="btn_donate">Donate Now</span>
+                <button onclick="openDonateModal()" class="px-5 py-2 text-xs font-bold text-white bg-sunOrange-600 hover:bg-sunOrange-700 rounded-xl transition-all shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-heart text-amber-200"></i> Donate Now
                 </button>
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button id="mobileMenuBtn" class="lg:hidden text-slate-700 hover:text-saffron-500 focus:outline-none p-2" aria-label="Open Menu">
+            <button id="mobileMenuBtn" class="lg:hidden text-navy-800 hover:text-sunOrange-600 p-2" aria-label="Open Menu">
                 <i class="fa-solid fa-bars text-2xl"></i>
             </button>
         </div>
 
         <!-- Mobile Drawer -->
         <div id="mobileDrawer" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3 shadow-lg">
-            <a href="#about" class="block text-slate-700 font-medium hover:text-saffron-500 py-1" onclick="toggleMobileMenu()" data-i18n="nav_about">About & Vision</a>
-            <a href="#pillars" class="block text-slate-700 font-medium hover:text-saffron-500 py-1" onclick="toggleMobileMenu()" data-i18n="nav_pillars">3 Core Pillars</a>
-            <a href="#transparency" class="block text-slate-700 font-medium hover:text-saffron-500 py-1" onclick="toggleMobileMenu()" data-i18n="nav_transparency">Funding & Budget Audit</a>
-            <a href="#sponsors" class="block text-slate-700 font-medium hover:text-saffron-500 py-1" onclick="toggleMobileMenu()" data-i18n="nav_sponsors">Sponsor a Student</a>
-            <a href="#contact" class="block text-slate-700 font-medium hover:text-saffron-500 py-1" onclick="toggleMobileMenu()" data-i18n="nav_contact">Contact</a>
-            <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
-                <button onclick="openScholarshipModal(); toggleMobileMenu();" class="w-full py-2.5 text-center text-sm font-semibold text-navy-700 bg-cream-100 rounded-xl border border-saffron-400">
-                    <i class="fa-solid fa-graduation-cap mr-1"></i> <span data-i18n="btn_apply_scholarship">Apply for Scholarship</span>
+            <a href="#about" class="block text-navy-800 font-bold hover:text-sunOrange-600 py-1.5 border-b border-slate-100" onclick="toggleMobileMenu()">About</a>
+            <a href="#programs" class="block text-navy-800 font-bold hover:text-sunOrange-600 py-1.5 border-b border-slate-100" onclick="toggleMobileMenu()">Our Programs</a>
+            <a href="#pillars" class="block text-navy-800 font-bold hover:text-sunOrange-600 py-1.5 border-b border-slate-100" onclick="toggleMobileMenu()">Our Pillars</a>
+            <a href="#transparency" class="block text-navy-800 font-bold hover:text-sunOrange-600 py-1.5 border-b border-slate-100" onclick="toggleMobileMenu()">Transparency</a>
+            <a href="#sponsors" class="block text-navy-800 font-bold hover:text-sunOrange-600 py-1.5 border-b border-slate-100" onclick="toggleMobileMenu()">Sponsor a Student</a>
+            <a href="#contact" class="block text-navy-800 font-bold hover:text-sunOrange-600 py-1.5" onclick="toggleMobileMenu()">Contact</a>
+            <div class="pt-3 flex flex-col gap-2">
+                <button onclick="openScholarshipModal(); toggleMobileMenu();" class="w-full py-2.5 text-center text-sm font-bold text-navy-800 bg-amber-50 rounded-xl border border-sunflower-400">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i> Apply for Scholarship
                 </button>
-                <button onclick="openDonateModal(); toggleMobileMenu();" class="w-full py-2.5 text-center text-sm font-semibold text-white bg-saffron-500 rounded-xl shadow-md">
-                    <i class="fa-solid fa-heart mr-1"></i> <span data-i18n="btn_donate">Donate Now</span>
+                <button onclick="openDonateModal(); toggleMobileMenu();" class="w-full py-2.5 text-center text-sm font-bold text-white bg-sunOrange-600 rounded-xl shadow-md">
+                    <i class="fa-solid fa-heart mr-1"></i> Donate Now
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- INTERFACE 1: USER PUBLIC WEBSITE -->
+    <!-- ══════════ USER PUBLIC VIEW ══════════ -->
     <div id="userPublicView">
 
-        <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-navy-900 via-navy-800 to-navy-700 text-white overflow-hidden py-16 sm:py-24">
-            <div class="absolute -top-24 -left-24 w-96 h-96 bg-saffron-500/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-sprout-500/20 rounded-full blur-3xl pointer-events-none"></div>
-            
+        <!-- ───── HERO SECTION ───── -->
+        <section class="hero-bg py-16 sm:py-24 border-b border-amber-100 overflow-hidden relative">
+            <!-- Decorative blobs -->
+            <div class="absolute -top-28 -left-28 w-96 h-96 bg-yellow-200/40 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-28 -right-28 w-80 h-80 bg-orange-200/30 rounded-full blur-3xl pointer-events-none"></div>
+
             <div class="container mx-auto px-4 relative z-10">
                 <div class="grid lg:grid-cols-12 gap-12 items-center">
-                    
-                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                        
-                        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full text-xs font-bold text-saffron-400">
-                            <i class="fa-solid fa-seedling text-sprout-500"></i>
-                            <span>Official Trust Deed Registered NGO • Slogan: Serving the soil</span>
+
+                    <div class="lg:col-span-7 space-y-7 text-center lg:text-left fade-up">
+
+                        <div class="inline-flex items-center gap-2 bg-white/90 border border-amber-200 px-4 py-1.5 rounded-full text-xs font-bold text-teal-600 shadow-sm">
+                            <i class="fa-solid fa-seedling"></i>
+                            Registered Trust Deed NGO • Maharashtra
                         </div>
 
-                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight">
-                            <span class="italic text-saffron-400">Serving the soil,</span><br class="hidden sm:inline"> 
-                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-saffron-400 via-amber-200 to-sprout-500">
-                                Empowering Communities Through Education, Health & Sustainable Agriculture
-                            </span>
-                        </h1>
+                        <!-- CURSIVE SLOGAN as main hero headline -->
+                        <div>
+                            <div class="cursive-slogan text-5xl sm:text-6xl lg:text-7xl text-sunOrange-600 leading-tight mb-3">
+                                Serving the soil,
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-navy-800 leading-snug">
+                                Building Careers Through<br class="hidden sm:block">
+                                <span class="text-teal-600">Skills, Innovation,</span> and Purpose
+                            </h2>
+                        </div>
 
-                        <p class="text-slate-200 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-                            <strong>Swarajya Seva Foundation</strong> (Founded by Tejashri Sapkal) creates sustainable social impact through integrated programs: <strong>Education & Awareness (40%)</strong>, <strong>Health & Social Welfare (30%)</strong>, and <strong>Agricultural Empowerment (30%)</strong>.
+                        <p class="text-navy-700 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            <strong>Swarajya Seva Foundation</strong> (Founded by Tejashri Sapkal) creates lasting social impact through integrated programs in Education, Health & Agriculture — empowering rural students, farmers, and families to thrive.
                         </p>
 
-                        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                            <button onclick="openScholarshipModal()" class="w-full sm:w-auto px-8 py-3.5 text-sm font-extrabold text-navy-900 bg-gradient-to-r from-saffron-400 to-saffron-500 hover:from-saffron-500 hover:to-saffron-600 rounded-xl shadow-xl hover:shadow-saffron-500/30 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-graduation-cap"></i> <span>Apply for Scholarship</span>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <button onclick="openScholarshipModal()" class="w-full sm:w-auto px-8 py-3.5 text-sm font-bold text-white bg-sunOrange-600 hover:bg-sunOrange-700 rounded-xl shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-graduation-cap"></i> Apply for Scholarship
                             </button>
-                            <button onclick="openDonateModal()" class="w-full sm:w-auto px-7 py-3.5 text-sm font-bold text-slate-100 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl backdrop-blur-md transition-all flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-hand-holding-heart text-saffron-400"></i> <span>Support / Donate</span>
+                            <button onclick="openDonateModal()" class="w-full sm:w-auto px-7 py-3.5 text-sm font-bold text-navy-900 bg-white hover:bg-amber-50 border border-amber-300 rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-hand-holding-heart text-sunOrange-600"></i> Support / Donate
                             </button>
                         </div>
 
-                        <!-- 3 Core Allocation Badges -->
-                        <div class="pt-6 border-t border-white/10 grid grid-cols-3 gap-4 text-center max-w-lg mx-auto lg:mx-0">
-                            <div class="bg-white/5 p-3 rounded-xl border border-white/10">
-                                <h4 class="text-lg font-bold text-sky-300">40%</h4>
-                                <p class="text-[11px] text-slate-300 font-semibold">🎓 Education & Awareness</p>
+                        <!-- Stats Row -->
+                        <div class="grid grid-cols-3 gap-4 pt-4 max-w-sm mx-auto lg:mx-0">
+                            <div class="text-center">
+                                <div class="text-2xl font-black text-navy-900">40%</div>
+                                <div class="text-[11px] text-teal-700 font-bold">Education</div>
                             </div>
-                            <div class="bg-white/5 p-3 rounded-xl border border-white/10">
-                                <h4 class="text-lg font-bold text-rose-400">30%</h4>
-                                <p class="text-[11px] text-slate-300 font-semibold">🏥 Health & Welfare</p>
+                            <div class="text-center border-x border-amber-200">
+                                <div class="text-2xl font-black text-navy-900">30%</div>
+                                <div class="text-[11px] text-sunOrange-600 font-bold">Health</div>
                             </div>
-                            <div class="bg-white/5 p-3 rounded-xl border border-white/10">
-                                <h4 class="text-lg font-bold text-sprout-500">30%</h4>
-                                <p class="text-[11px] text-slate-300 font-semibold">🌾 Agriculture Support</p>
+                            <div class="text-center">
+                                <div class="text-2xl font-black text-navy-900">30%</div>
+                                <div class="text-[11px] text-sage-600 font-bold">Agriculture</div>
                             </div>
                         </div>
-
                     </div>
 
-                    <!-- Hero Card Visual with Official Logo -->
-                    <div class="lg:col-span-5">
-                        <div class="relative bg-gradient-to-b from-white/15 to-white/5 backdrop-blur-xl border border-white/20 p-6 sm:p-8 rounded-3xl shadow-2xl space-y-5 text-center">
-                            
-                            <img src="assets/images/logo.png" alt="Swarajya Seva Foundation Logo" class="w-32 h-32 mx-auto brand-logo-img drop-shadow-xl bg-white/90 p-2.5 rounded-full border-2 border-saffron-400">
-                            
+                    <!-- Hero Card -->
+                    <div class="lg:col-span-5 fade-up">
+                        <div class="relative bg-white/95 border border-amber-100 p-7 sm:p-10 rounded-3xl shadow-2xl text-center space-y-5">
+                            <img src="assets/images/logo.png" alt="Swarajya Seva Foundation Logo" class="w-28 h-28 mx-auto brand-logo-img drop-shadow-md bg-white p-2 rounded-full border-2 border-amber-200">
                             <div>
-                                <h3 class="text-lg font-extrabold text-white uppercase tracking-wider">Swarajya Seva Foundation</h3>
-                                <p class="text-xs text-saffron-400 font-bold italic mt-0.5">Serving the soil</p>
+                                <h3 class="text-base font-extrabold text-navy-900 uppercase tracking-wide">Swarajya Seva Foundation</h3>
+                                <p class="cursive-slogan text-sunOrange-600 text-xl mt-0.5">Serving the soil</p>
                             </div>
-
-                            <p class="text-slate-200 text-xs sm:text-sm leading-relaxed italic border-t border-b border-white/10 py-3">
-                                "Our mission is to nourish the roots of our society — serving the soil that feeds us, educating the youth who shape our future, and caring for the health of every family."
+                            <p class="text-navy-700 text-sm leading-relaxed italic border-t border-b border-amber-100 py-4">
+                                "Our mission is to nourish the roots of our society — educating the youth who shape our future, caring for the health of every family, and empowering the farmers who feed us all."
                             </p>
-
-                            <div class="bg-white/10 p-3 rounded-2xl border border-white/10 flex items-center justify-between text-xs text-slate-200">
-                                <span class="flex items-center gap-2"><i class="fa-solid fa-user-tie text-saffron-400"></i> Founder: Tejashri Sapkal</span>
-                                <button onclick="openDonateModal()" class="text-saffron-400 font-bold underline hover:text-saffron-300">Donate Now →</button>
+                            <div class="bg-amber-50 p-3 rounded-2xl border border-amber-100 flex items-center justify-between text-xs text-navy-800 font-bold">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-user-tie text-sunOrange-600"></i> Founder: Tejashri Sapkal</span>
+                                <button onclick="openDonateModal()" class="text-sunOrange-600 font-bold underline hover:text-sunOrange-700">Donate Now →</button>
                             </div>
                         </div>
                     </div>
@@ -241,325 +317,553 @@
             </div>
         </section>
 
-        <!-- Official Vision & Mission Section (From Trust Deed) -->
+        <!-- ───── ABOUT + WHO WE ARE (TAB 1) ───── -->
         <section id="about" class="py-16 sm:py-20 bg-white">
             <div class="container mx-auto px-4">
-                
-                <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
-                    <span class="text-xs font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-3 py-1 rounded-full border border-saffron-200">Official Trust Deed Mandate</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-700">Our Vision & Mission</h2>
-                    <p class="text-slate-600 text-sm sm:text-base">Comprehensive strategy driving Swarajya Seva Foundation.</p>
+
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-12">
+                    <span class="text-xs font-bold uppercase tracking-wider text-sunOrange-600 bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200">Who We Are</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900">About Swarajya Seva Foundation</h2>
+                    <p class="text-navy-700 text-sm sm:text-base">Grounded in communities. Driven by purpose. Transparent in action.</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-8 mb-12">
-                    
-                    <!-- Vision Box -->
-                    <div class="bg-cream-50 p-8 rounded-3xl border border-cream-200 shadow-sm space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-navy-700 text-white flex items-center justify-center text-xl font-bold">
-                            <i class="fa-solid fa-eye text-saffron-400"></i>
+                <!-- 4 Accordion Sections from Trust Deed -->
+                <div class="max-w-4xl mx-auto space-y-3">
+
+                    <!-- Accordion 1 -->
+                    <div class="bg-amber-50 border border-amber-100 rounded-2xl overflow-hidden">
+                        <button onclick="toggleAccordion('acc1')" class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-navy-900 hover:bg-amber-100 transition-colors">
+                            <span class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-teal-500 text-white text-sm flex items-center justify-center font-black">1</span>
+                                Education & Awareness — Our Core Focus (40%)
+                            </span>
+                            <i id="acc1-icon" class="fa-solid fa-chevron-down text-sunOrange-600 transition-transform"></i>
+                        </button>
+                        <div id="acc1" class="accordion-body px-6">
+                            <div class="pb-5 text-sm text-navy-700 space-y-3 border-t border-amber-100 pt-4">
+                                <p>Education is our primary sector, reflecting the most detailed objectives in our Trust Deed (Sections 3.1a–h). We focus on:</p>
+                                <ul class="grid sm:grid-cols-2 gap-2">
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i> Rural student career counselling & mentorship</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i> Scholarship awareness & financial assistance</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i> Schools, colleges & digital learning centres</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i> Books, uniforms, stationery & learning resources</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i> Computer literacy & digital education</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i> Skill development & personality development</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i> Seminars, career guidance camps & webinars</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 flex-shrink-0"></i> Support for children with special needs</li>
+                                </ul>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-bold text-navy-700">Our Vision</h3>
-                        <p class="text-slate-700 text-sm leading-relaxed font-light">
-                            To build an inclusive, empowered and sustainable society where every individual—especially rural students, farmers, women, children, senior citizens and vulnerable communities—has access to education, healthcare, livelihood opportunities and the resources needed to live with dignity and achieve a better future.
-                        </p>
                     </div>
 
-                    <!-- Mission Box -->
-                    <div class="bg-cream-50 p-8 rounded-3xl border border-cream-200 shadow-sm space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-saffron-500 text-white flex items-center justify-center text-xl font-bold">
-                            <i class="fa-solid fa-bullseye"></i>
+                    <!-- Accordion 2 -->
+                    <div class="bg-amber-50 border border-amber-100 rounded-2xl overflow-hidden">
+                        <button onclick="toggleAccordion('acc2')" class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-navy-900 hover:bg-amber-100 transition-colors">
+                            <span class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-sunOrange-600 text-white text-sm flex items-center justify-center font-black">2</span>
+                                Health & Social Welfare (30%)
+                            </span>
+                            <i id="acc2-icon" class="fa-solid fa-chevron-down text-sunOrange-600 transition-transform"></i>
+                        </button>
+                        <div id="acc2" class="accordion-body px-6">
+                            <div class="pb-5 text-sm text-navy-700 space-y-3 border-t border-amber-100 pt-4">
+                                <p>Covered under Section 3.2 of Trust Deed — we bring healthcare access to those who need it most:</p>
+                                <ul class="grid sm:grid-cols-2 gap-2">
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sunOrange-500 mt-0.5 flex-shrink-0"></i> Rural health camps & vaccination drives</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sunOrange-500 mt-0.5 flex-shrink-0"></i> Blood donation drives</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sunOrange-500 mt-0.5 flex-shrink-0"></i> Medicine & medical kit distribution</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sunOrange-500 mt-0.5 flex-shrink-0"></i> Maternal & child healthcare</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sunOrange-500 mt-0.5 flex-shrink-0"></i> Mental health awareness & counseling</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sunOrange-500 mt-0.5 flex-shrink-0"></i> Disability & senior citizen care</li>
+                                </ul>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-bold text-navy-700">Our Mission</h3>
-                        <p class="text-slate-700 text-sm leading-relaxed font-light">
-                            Swarajya Seva Foundation is committed to creating meaningful and sustainable social impact through integrated initiatives in education, health and agriculture:
-                        </p>
-                        <ul class="space-y-2 text-xs text-slate-700 font-medium">
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sprout-500 mt-0.5"></i> Empower rural & underserved students through scholarships and career guidance.</li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sprout-500 mt-0.5"></i> Improve healthcare access through health camps and medical assistance.</li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sprout-500 mt-0.5"></i> Empower farmers through sustainable agriculture, soil health & skill workshops.</li>
+                    </div>
+
+                    <!-- Accordion 3 -->
+                    <div class="bg-amber-50 border border-amber-100 rounded-2xl overflow-hidden">
+                        <button onclick="toggleAccordion('acc3')" class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-navy-900 hover:bg-amber-100 transition-colors">
+                            <span class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-sage-600 text-white text-sm flex items-center justify-center font-black">3</span>
+                                Agricultural Empowerment (30%)
+                            </span>
+                            <i id="acc3-icon" class="fa-solid fa-chevron-down text-sunOrange-600 transition-transform"></i>
+                        </button>
+                        <div id="acc3" class="accordion-body px-6">
+                            <div class="pb-5 text-sm text-navy-700 space-y-3 border-t border-amber-100 pt-4">
+                                <p>Our differentiating pillar under Section 3.3 — empowering farmers through sustainable practices:</p>
+                                <ul class="grid sm:grid-cols-2 gap-2">
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sage-600 mt-0.5 flex-shrink-0"></i> Organic farming & soil testing</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sage-600 mt-0.5 flex-shrink-0"></i> Farmer skill-development workshops</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sage-600 mt-0.5 flex-shrink-0"></i> Counseling for financial challenges</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sage-600 mt-0.5 flex-shrink-0"></i> Ecological & forest conservation</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sage-600 mt-0.5 flex-shrink-0"></i> Water conservation & irrigation guidance</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-sage-600 mt-0.5 flex-shrink-0"></i> Connecting farmers to market & tech</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accordion 4 -->
+                    <div class="bg-amber-50 border border-amber-100 rounded-2xl overflow-hidden">
+                        <button onclick="toggleAccordion('acc4')" class="w-full text-left px-6 py-4 flex justify-between items-center font-bold text-navy-900 hover:bg-amber-100 transition-colors">
+                            <span class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-navy-800 text-white text-sm flex items-center justify-center font-black">4</span>
+                                Our Vision & Mission
+                            </span>
+                            <i id="acc4-icon" class="fa-solid fa-chevron-down text-sunOrange-600 transition-transform"></i>
+                        </button>
+                        <div id="acc4" class="accordion-body px-6">
+                            <div class="pb-5 text-sm text-navy-700 space-y-4 border-t border-amber-100 pt-4">
+                                <div>
+                                    <h4 class="font-bold text-navy-900 mb-1 flex items-center gap-2"><i class="fa-solid fa-eye text-teal-500"></i> Our Vision</h4>
+                                    <p>To build an inclusive, empowered and sustainable society where every individual — especially rural students, farmers, women, children, senior citizens and vulnerable communities — has access to education, healthcare, livelihood opportunities and the resources needed to live with dignity.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 mb-1 flex items-center gap-2"><i class="fa-solid fa-bullseye text-sunOrange-600"></i> Our Mission</h4>
+                                    <p>Swarajya Seva Foundation is committed to creating meaningful social impact through integrated initiatives — empowering rural students with scholarships & career guidance, improving healthcare access, and equipping farmers with modern, sustainable tools and knowledge.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ───── OUR PROGRAMS (TAB 2) ───── -->
+        <section id="programs" class="py-16 sm:py-20 bg-gradient-to-br from-navy-900 to-navy-950 text-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
+                    <span class="text-xs font-bold uppercase tracking-wider text-sunflower-400 bg-white/10 px-3.5 py-1 rounded-full border border-white/20">Our Programs</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">What We Do — Our Key Programs</h2>
+                    <p class="text-slate-300 text-sm sm:text-base">Hands-on initiatives designed to build careers, confidence, and communities.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+
+                    <!-- Program 1: Career Guidance -->
+                    <div class="bg-white/10 border border-white/15 rounded-3xl p-7 space-y-5 hover:bg-white/15 transition-all group">
+                        <div class="w-14 h-14 bg-teal-500/20 border border-teal-400/30 rounded-2xl flex items-center justify-center text-teal-300 text-2xl">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-extrabold text-white mb-2">Career Guidance</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">One-on-one career counseling, mentorship sessions, and guidance camps for rural students to discover their strengths and chart the right path — from stream selection to professional careers.</p>
+                        </div>
+                        <ul class="text-xs text-slate-300 space-y-1.5 font-semibold">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-teal-400 text-xs"></i> Personalized career roadmaps</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-teal-400 text-xs"></i> College & stream counseling</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-teal-400 text-xs"></i> Expert mentorship network</li>
                         </ul>
+                        <a href="#contact" class="inline-flex items-center gap-1.5 text-teal-300 text-xs font-bold hover:text-white transition-colors">Get Guidance <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <!-- Program 2: Scholarship -->
+                    <div class="bg-sunOrange-600/20 border border-sunOrange-500/30 rounded-3xl p-7 space-y-5 hover:bg-sunOrange-600/30 transition-all group">
+                        <div class="w-14 h-14 bg-sunOrange-500/20 border border-sunOrange-400/30 rounded-2xl flex items-center justify-center text-sunOrange-300 text-2xl">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-extrabold text-white mb-2">Scholarship Program</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">Merit and need-based scholarships connecting deserving students directly with compassionate sponsors. Transparent process, verified applications, and direct sponsor-student connection.</p>
+                        </div>
+                        <ul class="text-xs text-slate-300 space-y-1.5 font-semibold">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-sunOrange-400 text-xs"></i> Need & merit-based selection</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-sunOrange-400 text-xs"></i> Direct sponsor-student connection</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-sunOrange-400 text-xs"></i> Full document verification</li>
+                        </ul>
+                        <button onclick="openScholarshipModal()" class="inline-flex items-center gap-1.5 text-sunOrange-300 text-xs font-bold hover:text-white transition-colors">Apply Now <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+
+                    <!-- Program 3: Entrepreneurship Workshops -->
+                    <div class="bg-white/10 border border-white/15 rounded-3xl p-7 space-y-5 hover:bg-white/15 transition-all group">
+                        <div class="w-14 h-14 bg-sunflower-400/20 border border-sunflower-400/30 rounded-2xl flex items-center justify-center text-sunflower-300 text-2xl">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-extrabold text-white mb-2">Entrepreneurship Workshops</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">Practical workshops that ignite the entrepreneurial spirit in rural youth — from business ideation and skill development to pitching and self-employment opportunities in both traditional and emerging sectors.</p>
+                        </div>
+                        <ul class="text-xs text-slate-300 space-y-1.5 font-semibold">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-sunflower-400 text-xs"></i> Business ideation & planning</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-sunflower-400 text-xs"></i> Agri-entrepreneurship & start-ups</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-sunflower-400 text-xs"></i> Self-employment skill building</li>
+                        </ul>
+                        <a href="#contact" class="inline-flex items-center gap-1.5 text-sunflower-300 text-xs font-bold hover:text-white transition-colors">Join Workshop <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
 
                 </div>
-
             </div>
         </section>
 
-        <!-- 3 Core Pillars (40% - 30% - 30% Trust Deed Allocation) -->
-        <section id="pillars" class="py-16 sm:py-20 bg-cream-100 border-t border-b border-cream-200">
+        <!-- ───── OUR 3 PILLARS (Image-based) ───── -->
+        <section id="pillars" class="py-16 sm:py-20 bg-amber-50/60 border-t border-amber-100">
             <div class="container mx-auto px-4">
-                
+
                 <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
-                    <span class="text-xs font-bold uppercase tracking-wider text-sprout-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Operational Allocation</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-700">Our 3 Core Pillars</h2>
-                    <p class="text-slate-600 text-sm sm:text-base">Operational program focus structured according to Trust Deed Sections 3.1, 3.2 & 3.3.</p>
+                    <span class="text-xs font-bold uppercase tracking-wider text-sage-600 bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200">Our Pillars</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900">Three Pillars of Transformation</h2>
+                    <p class="text-navy-700 text-sm sm:text-base">Every initiative is rooted in one of our three core areas of impact.</p>
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
-                    
-                    <!-- Pillar 01: Education 40% -->
-                    <div class="bg-white rounded-3xl p-8 border-2 border-sky-400 shadow-md flex flex-col justify-between space-y-6 relative overflow-hidden">
-                        <span class="absolute top-0 right-0 bg-sky-500 text-white font-extrabold text-xs px-4 py-1 rounded-bl-2xl">40% Allocation</span>
-                        <div class="space-y-4">
-                            <div class="text-3xl font-black text-sky-600">01</div>
-                            <h3 class="text-xl font-bold text-slate-900">Education & Awareness</h3>
-                            <p class="text-xs text-sky-700 font-bold uppercase tracking-wider">Educate • Empower • Enable</p>
-                            <p class="text-slate-600 text-xs leading-relaxed">
-                                Primary sector focus based on Sections 3.1(a)–(h) of Trust Deed covering career mentorship, scholarships, digital learning, coaching, and educational resources.
-                            </p>
-                            <ul class="space-y-1.5 text-xs text-slate-700 font-medium pt-2">
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-500"></i> Rural student career counseling</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-500"></i> Merit & Need-based Scholarships</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-500"></i> Computer literacy & digital centers</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-500"></i> Books, uniforms & coaching classes</li>
-                            </ul>
+
+                    <!-- Pillar 1: Education -->
+                    <div class="pillar-card bg-white border border-amber-100 shadow-md">
+                        <img src="https://images.unsplash.com/photo-1529390079861-591de354fafe?w=600&q=80" alt="Students studying in rural school" loading="lazy">
+                        <div class="p-6 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-book-open"></i>
+                                </div>
+                                <h3 class="text-lg font-extrabold text-navy-900">Education & Awareness</h3>
+                            </div>
+                            <p class="text-sm text-navy-700 leading-relaxed">Scholarships, career counseling, digital literacy — unlocking every student's potential regardless of background.</p>
+                            <button onclick="openScholarshipModal()" class="w-full py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl transition-all">
+                                Apply for Scholarship →
+                            </button>
                         </div>
-                        <button onclick="openScholarshipModal()" class="w-full py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl transition-all">
-                            Apply for Scholarship →
-                        </button>
                     </div>
 
-                    <!-- Pillar 02: Health 30% -->
-                    <div class="bg-white rounded-3xl p-8 border-2 border-rose-400 shadow-md flex flex-col justify-between space-y-6 relative overflow-hidden">
-                        <span class="absolute top-0 right-0 bg-rose-500 text-white font-extrabold text-xs px-4 py-1 rounded-bl-2xl">30% Allocation</span>
-                        <div class="space-y-4">
-                            <div class="text-3xl font-black text-rose-500">02</div>
-                            <h3 class="text-xl font-bold text-slate-900">Health & Social Welfare</h3>
-                            <p class="text-xs text-rose-600 font-bold uppercase tracking-wider">Health • Dignity • Inclusion</p>
-                            <p class="text-slate-600 text-xs leading-relaxed">
-                                Covered under Section 3.2 of Trust Deed including rural health camps, blood donation, mental health awareness, medicine distribution, and senior/disability support.
-                            </p>
-                            <ul class="space-y-1.5 text-xs text-slate-700 font-medium pt-2">
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-500"></i> Rural health & vaccination drives</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-500"></i> Medicine & medical kit distribution</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-500"></i> Maternal & child healthcare</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-500"></i> Disability & senior citizen care</li>
-                            </ul>
+                    <!-- Pillar 2: Health -->
+                    <div class="pillar-card bg-white border border-amber-100 shadow-md">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80" alt="Rural health camp with doctor and patients" loading="lazy">
+                        <div class="p-6 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-red-50 text-sunOrange-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-heart-pulse"></i>
+                                </div>
+                                <h3 class="text-lg font-extrabold text-navy-900">Health & Social Welfare</h3>
+                            </div>
+                            <p class="text-sm text-navy-700 leading-relaxed">Health camps, medicine drives, maternal care, and mental health awareness — because wellness is a right, not a privilege.</p>
+                            <a href="#contact" class="block w-full py-2.5 bg-sunOrange-600 hover:bg-sunOrange-700 text-white font-bold text-xs rounded-xl transition-all text-center">
+                                Request a Health Camp →
+                            </a>
                         </div>
-                        <a href="#contact" class="w-full py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs rounded-xl transition-all text-center block">
-                            Request Health Camp →
-                        </a>
                     </div>
 
-                    <!-- Pillar 03: Agriculture 30% -->
-                    <div class="bg-white rounded-3xl p-8 border-2 border-sprout-500 shadow-md flex flex-col justify-between space-y-6 relative overflow-hidden">
-                        <span class="absolute top-0 right-0 bg-sprout-500 text-white font-extrabold text-xs px-4 py-1 rounded-bl-2xl">30% Allocation</span>
-                        <div class="space-y-4">
-                            <div class="text-3xl font-black text-sprout-600">03</div>
-                            <h3 class="text-xl font-bold text-slate-900">Agricultural Empowerment</h3>
-                            <p class="text-xs text-sprout-700 font-bold uppercase tracking-wider italic">Farmers • Sustainability • Soil</p>
-                            <p class="text-slate-600 text-xs leading-relaxed">
-                                Differentiating pillar under Section 3.3 of Trust Deed focused on organic farming, soil testing, sustainable practices, and farmer counseling.
-                            </p>
-                            <ul class="space-y-1.5 text-xs text-slate-700 font-medium pt-2">
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sprout-500"></i> Organic farming & soil testing</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sprout-500"></i> Farmer skill-development workshops</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sprout-500"></i> Counseling for financial challenges</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sprout-500"></i> Ecological & forest conservation</li>
-                            </ul>
+                    <!-- Pillar 3: Agriculture -->
+                    <div class="pillar-card bg-white border border-amber-100 shadow-md">
+                        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&q=80" alt="Farmer working in sustainable agriculture field" loading="lazy">
+                        <div class="p-6 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-sage-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-wheat-awn"></i>
+                                </div>
+                                <h3 class="text-lg font-extrabold text-navy-900">Agricultural Empowerment</h3>
+                            </div>
+                            <p class="text-sm text-navy-700 leading-relaxed">Organic farming, soil testing, water conservation and farmer workshops — because the soil sustains us all.</p>
+                            <a href="#contact" class="block w-full py-2.5 bg-sage-600 hover:bg-sage-700 text-white font-bold text-xs rounded-xl transition-all text-center">
+                                Join Farmer Drive →
+                            </a>
                         </div>
-                        <a href="#contact" class="w-full py-2.5 bg-sprout-500 hover:bg-sprout-600 text-white font-bold text-xs rounded-xl transition-all text-center block">
-                            Join Farmer Drive →
-                        </a>
                     </div>
 
+                </div>
+
+                <!-- ── PARTNERS SECTION (below pillars) ── -->
+                <div class="mt-20">
+                    <div class="max-w-3xl mx-auto text-center space-y-3 mb-10">
+                        <span class="text-xs font-bold uppercase tracking-wider text-navy-700 bg-white px-3.5 py-1 rounded-full border border-slate-200">Our Ecosystem</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900">Our Partners & Collaborators</h2>
+                        <p class="text-navy-700 text-sm sm:text-base">We grow stronger together. Swarajya Seva Foundation works alongside government bodies, CSR programs, educational institutions, and community leaders.</p>
+                    </div>
+
+                    <!-- Partner Logos (placeholder category logos) -->
+                    <div class="grid grid-cols-3 md:grid-cols-6 gap-6 items-center justify-center mb-12">
+                        <div class="flex flex-col items-center gap-2 group">
+                            <div class="partner-logo w-20 h-20 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center text-3xl text-slate-400 group-hover:text-teal-600 transition-all">
+                                <i class="fa-solid fa-landmark"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-slate-500 text-center">Govt. Bodies</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2 group">
+                            <div class="partner-logo w-20 h-20 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center text-3xl text-slate-400 group-hover:text-sunOrange-600 transition-all">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-slate-500 text-center">Colleges & Schools</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2 group">
+                            <div class="partner-logo w-20 h-20 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center text-3xl text-slate-400 group-hover:text-sage-600 transition-all">
+                                <i class="fa-solid fa-handshake"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-slate-500 text-center">CSR Partners</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2 group">
+                            <div class="partner-logo w-20 h-20 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center text-3xl text-slate-400 group-hover:text-navy-700 transition-all">
+                                <i class="fa-solid fa-hospital"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-slate-500 text-center">Health Institutions</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2 group">
+                            <div class="partner-logo w-20 h-20 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center text-3xl text-slate-400 group-hover:text-teal-600 transition-all">
+                                <i class="fa-solid fa-tractor"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-slate-500 text-center">Agri Cooperatives</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2 group">
+                            <div class="partner-logo w-20 h-20 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center text-3xl text-slate-400 group-hover:text-sunOrange-600 transition-all">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-slate-500 text-center">Fellow NGOs</span>
+                        </div>
+                    </div>
+
+                    <!-- Partner Invite CTA -->
+                    <div class="bg-gradient-to-r from-navy-900 to-navy-800 rounded-3xl p-8 sm:p-12 text-white text-center space-y-5">
+                        <div class="text-4xl">🤝</div>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold">Be Our First Partner — Shape the Future With Us!</h3>
+                        <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                            We are a young, purpose-driven NGO with a freshly registered Trust Deed and a big vision. <strong class="text-sunflower-400">We're looking for partners who don't just fund a cause — but want to <em>build</em> one.</strong> Whether you are a corporation, college, hospital, community leader, or a fellow change-maker — there's a seat at our table for you.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+                            <a href="mailto:swarajyasevafoundation@gmail.com?subject=Partnership Inquiry — Swarajya Seva Foundation" class="px-7 py-3 bg-sunOrange-600 hover:bg-sunOrange-700 text-white font-bold text-sm rounded-xl shadow-lg transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-envelope"></i> Write to Us — Partner Today
+                            </a>
+                            <a href="https://wa.me/919021751543?text=Hello%20Swarajya%20Seva%20Foundation!%20I'm%20interested%20in%20partnering%20with%20you." target="_blank" class="px-7 py-3 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-sm rounded-xl transition-all flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-green-400"></i> WhatsApp Us
+                            </a>
+                        </div>
+                        <p class="text-slate-500 text-xs">
+                            📍 Partnerships are open for: Education, Healthcare, Agriculture, Skill Development, CSR programs & Community Outreach
+                        </p>
+                    </div>
                 </div>
 
             </div>
         </section>
 
-        <!-- Funding Transparency & Budget Audit Section -->
-        <section id="transparency" class="py-16 sm:py-20 bg-navy-900 text-white">
+        <!-- ───── FUNDING TRANSPARENCY ───── -->
+        <section id="transparency" class="py-16 sm:py-20 bg-white">
             <div class="container mx-auto px-4">
-                
+
                 <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
-                    <span class="text-xs font-bold uppercase tracking-wider text-saffron-400 bg-white/10 px-3 py-1 rounded-full border border-white/20">Audit & Transparency</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Funding Allocation & Audit Transparency</h2>
-                    <p class="text-slate-300 text-sm sm:text-base">
-                        Swarajya Seva Foundation maintains 100% financial transparency for donors, auditing funds strictly according to our operational budget framework.
-                    </p>
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-600 bg-teal-50 px-3.5 py-1 rounded-full border border-teal-200">Full Transparency</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900">Funding Allocation & Budget Transparency</h2>
+                    <p class="text-navy-700 text-sm sm:text-base">Every rupee is accounted for. Donors can track where their contribution goes — and who it benefits.</p>
                 </div>
 
-                <!-- Visual 40-30-30 Progress Bars -->
-                <div class="max-w-3xl mx-auto bg-white/10 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-white/15 space-y-6">
-                    
-                    <div>
-                        <div class="flex justify-between text-xs font-bold mb-1">
-                            <span class="text-sky-300">🎓 Education & Awareness</span>
-                            <span>40% Allocated</span>
+                <div class="grid lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+
+                    <div class="space-y-5">
+                        <!-- Education Bar -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center text-teal-600 text-xl"><i class="fa-solid fa-book-open"></i></div>
+                                <div>
+                                    <div class="font-extrabold text-navy-900">Education & Awareness</div>
+                                    <div class="text-xs text-teal-700 font-semibold">Scholarships, counseling, digital literacy</div>
+                                </div>
+                            </div>
+                            <div class="w-full bg-teal-50 h-3 rounded-full overflow-hidden">
+                                <div class="bg-teal-500 h-full rounded-full" style="width:40%"></div>
+                            </div>
+                            <div class="text-xs text-navy-700 font-semibold text-right">40% of operational budget</div>
                         </div>
-                        <div class="w-full bg-navy-950 h-3 rounded-full overflow-hidden">
-                            <div class="bg-sky-400 h-full w-[40%]"></div>
+
+                        <!-- Health Bar -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-sunOrange-600 text-xl"><i class="fa-solid fa-heart-pulse"></i></div>
+                                <div>
+                                    <div class="font-extrabold text-navy-900">Health & Social Welfare</div>
+                                    <div class="text-xs text-sunOrange-600 font-semibold">Health camps, medicine, maternal care</div>
+                                </div>
+                            </div>
+                            <div class="w-full bg-orange-50 h-3 rounded-full overflow-hidden">
+                                <div class="bg-sunOrange-500 h-full rounded-full" style="width:30%"></div>
+                            </div>
+                            <div class="text-xs text-navy-700 font-semibold text-right">30% of operational budget</div>
+                        </div>
+
+                        <!-- Agriculture Bar -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-sage-600 text-xl"><i class="fa-solid fa-wheat-awn"></i></div>
+                                <div>
+                                    <div class="font-extrabold text-navy-900">Agricultural Empowerment</div>
+                                    <div class="text-xs text-sage-700 font-semibold">Soil health, farmer workshops, sustainability</div>
+                                </div>
+                            </div>
+                            <div class="w-full bg-emerald-50 h-3 rounded-full overflow-hidden">
+                                <div class="bg-sage-600 h-full rounded-full" style="width:30%"></div>
+                            </div>
+                            <div class="text-xs text-navy-700 font-semibold text-right">30% of operational budget</div>
+                        </div>
+
+                        <div class="text-center pt-2">
+                            <button onclick="openDonateModal()" class="px-8 py-3 bg-sunOrange-600 hover:bg-sunOrange-700 text-white font-bold text-sm rounded-xl transition-all shadow-md">
+                                Contribute to Swarajya Seva Foundation →
+                            </button>
                         </div>
                     </div>
 
-                    <div>
-                        <div class="flex justify-between text-xs font-bold mb-1">
-                            <span class="text-rose-400">🏥 Health & Social Welfare</span>
-                            <span>30% Allocated</span>
-                        </div>
-                        <div class="w-full bg-navy-950 h-3 rounded-full overflow-hidden">
-                            <div class="bg-rose-400 h-full w-[30%]"></div>
+                    <!-- Transparency Card -->
+                    <div class="bg-navy-900 text-white p-8 rounded-3xl space-y-6">
+                        <h3 class="text-xl font-extrabold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-shield-halved text-sunflower-400"></i> Donor Promise
+                        </h3>
+                        <ul class="space-y-4 text-sm text-slate-200">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-teal-400 text-base mt-0.5 flex-shrink-0"></i>
+                                <span><strong class="text-white">Track your impact.</strong> Donors can see exactly which beneficiary received support from their contribution.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-teal-400 text-base mt-0.5 flex-shrink-0"></i>
+                                <span><strong class="text-white">Verified applications.</strong> Every scholarship application is manually verified before being shared with sponsors.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-teal-400 text-base mt-0.5 flex-shrink-0"></i>
+                                <span><strong class="text-white">Direct connection.</strong> Sponsors connect directly with the student through the Foundation — no anonymous donations.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-teal-400 text-base mt-0.5 flex-shrink-0"></i>
+                                <span><strong class="text-white">Annual Audit Report.</strong> All operational expenses are published annually for public review.</span>
+                            </li>
+                        </ul>
+                        <div class="bg-white/10 border border-white/15 p-4 rounded-2xl text-xs text-slate-300">
+                            <i class="fa-solid fa-info-circle text-sunflower-400 mr-1"></i>
+                            Admin/Owner can download full donor & applicant data as <strong class="text-white">Google Sheets CSV</strong> via the Owner Portal.
                         </div>
                     </div>
-
-                    <div>
-                        <div class="flex justify-between text-xs font-bold mb-1">
-                            <span class="text-sprout-500">🌾 Agricultural Empowerment (Serving the soil)</span>
-                            <span>30% Allocated</span>
-                        </div>
-                        <div class="w-full bg-navy-950 h-3 rounded-full overflow-hidden">
-                            <div class="bg-sprout-500 h-full w-[30%]"></div>
-                        </div>
-                    </div>
-
-                    <div class="pt-4 border-t border-white/10 text-center">
-                        <button onclick="openDonateModal()" class="px-8 py-3 bg-saffron-500 hover:bg-saffron-600 text-white font-extrabold text-xs rounded-xl transition-all shadow-md">
-                            Contribute to Swarajya Seva Foundation Fund →
-                        </button>
-                    </div>
-
                 </div>
-
             </div>
         </section>
 
-        <!-- Sponsor a Student / Beneficiary Board -->
-        <section id="sponsors" class="py-16 sm:py-20 bg-white">
+        <!-- ───── SPONSOR A STUDENT ───── -->
+        <section id="sponsors" class="py-16 sm:py-20 bg-amber-50/60 border-t border-amber-100">
             <div class="container mx-auto px-4">
-                
+
                 <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
-                    <span class="text-xs font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-3 py-1 rounded-full border border-saffron-200">Direct Impact Board</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-700">Sponsor a Student Directly</h2>
-                    <p class="text-slate-600 text-sm">Express interest in a verified student below. Foundation verifies and connects sponsor directly with applicant.</p>
+                    <span class="text-xs font-bold uppercase tracking-wider text-sunOrange-600 bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200">Direct Impact Board</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900">Sponsor a Student Directly</h2>
+                    <p class="text-navy-700 text-sm font-semibold">Express interest in a verified student below. Foundation verifies and connects sponsor directly with the applicant.</p>
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
-                    
-                    <div class="bg-cream-50 rounded-2xl p-6 border border-cream-200 flex flex-col justify-between space-y-4">
-                        <div class="space-y-3">
-                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2.5 py-1 rounded-md">Verified #SSF-2026-01</span>
-                            <h3 class="text-base font-bold text-slate-900">Rahul P. (Engineering Student)</h3>
-                            <p class="text-xs text-slate-600"><strong>Course:</strong> B.Tech (Computer Science)</p>
-                            <p class="text-xs text-slate-600"><strong>Requirement:</strong> ₹ 15,000 (Semester Exam Fees)</p>
+
+                    <div class="bg-white rounded-3xl border border-amber-100 shadow-sm flex flex-col justify-between overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=400&q=80" alt="Engineering student" class="w-full h-36 object-cover object-top" loading="lazy">
+                        <div class="p-5 space-y-3 flex-1">
+                            <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2.5 py-1 rounded-md">Verified #SSF-2026-01</span>
+                            <h3 class="text-sm font-extrabold text-navy-900">Rahul P. (Engineering Student)</h3>
+                            <p class="text-xs text-navy-700 font-semibold"><strong>Course:</strong> B.Tech (Computer Science)</p>
+                            <p class="text-xs text-navy-700 font-semibold"><strong>Requirement:</strong> ₹ 15,000 (Semester Exam Fees)</p>
                             <p class="text-xs text-slate-500 italic">"Son of a small-scale farmer needing assistance for 2nd year fees."</p>
                         </div>
-                        <button onclick="expressSponsorInterest('Rahul P.', '#SSF-2026-01')" class="w-full py-2 bg-navy-700 hover:bg-navy-800 text-white font-bold text-xs rounded-xl shadow-xs">
-                            Sponsor This Student
-                        </button>
+                        <div class="p-5 pt-0">
+                            <button onclick="expressSponsorInterest('Rahul P.', '#SSF-2026-01')" class="w-full py-2.5 bg-navy-800 hover:bg-navy-900 text-white font-bold text-xs rounded-xl shadow-sm transition-all">
+                                Sponsor This Student
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="bg-cream-50 rounded-2xl p-6 border border-cream-200 flex flex-col justify-between space-y-4">
-                        <div class="space-y-3">
-                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2.5 py-1 rounded-md">Verified #SSF-2026-02</span>
-                            <h3 class="text-base font-bold text-slate-900">Sneha K. (Nursing Aspirant)</h3>
-                            <p class="text-xs text-slate-600"><strong>Course:</strong> B.Sc Nursing (1st Year)</p>
-                            <p class="text-xs text-slate-600"><strong>Requirement:</strong> ₹ 12,000 (Admission Support)</p>
+                    <div class="bg-white rounded-3xl border border-amber-100 shadow-sm flex flex-col justify-between overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" alt="Nursing student" class="w-full h-36 object-cover object-top" loading="lazy">
+                        <div class="p-5 space-y-3 flex-1">
+                            <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2.5 py-1 rounded-md">Verified #SSF-2026-02</span>
+                            <h3 class="text-sm font-extrabold text-navy-900">Sneha K. (Nursing Aspirant)</h3>
+                            <p class="text-xs text-navy-700 font-semibold"><strong>Course:</strong> B.Sc Nursing (1st Year)</p>
+                            <p class="text-xs text-navy-700 font-semibold"><strong>Requirement:</strong> ₹ 12,000 (Admission Support)</p>
                             <p class="text-xs text-slate-500 italic">"Mother is a daily wage earner. Passionate about healthcare service."</p>
                         </div>
-                        <button onclick="expressSponsorInterest('Sneha K.', '#SSF-2026-02')" class="w-full py-2 bg-navy-700 hover:bg-navy-800 text-white font-bold text-xs rounded-xl shadow-xs">
-                            Sponsor This Student
-                        </button>
+                        <div class="p-5 pt-0">
+                            <button onclick="expressSponsorInterest('Sneha K.', '#SSF-2026-02')" class="w-full py-2.5 bg-navy-800 hover:bg-navy-900 text-white font-bold text-xs rounded-xl shadow-sm transition-all">
+                                Sponsor This Student
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="bg-cream-50 rounded-2xl p-6 border border-cream-200 flex flex-col justify-between space-y-4">
-                        <div class="space-y-3">
-                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2.5 py-1 rounded-md">Verified #SSF-2026-03</span>
-                            <h3 class="text-base font-bold text-slate-900">Vikas M. (Agri-Tech Diploma)</h3>
-                            <p class="text-xs text-slate-600"><strong>Course:</strong> Sustainable Agriculture</p>
-                            <p class="text-xs text-slate-600"><strong>Requirement:</strong> ₹ 8,000 (Soil Testing Kit & Course)</p>
+                    <div class="bg-white rounded-3xl border border-amber-100 shadow-sm flex flex-col justify-between overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&q=80" alt="Agriculture student" class="w-full h-36 object-cover object-top" loading="lazy">
+                        <div class="p-5 space-y-3 flex-1">
+                            <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2.5 py-1 rounded-md">Verified #SSF-2026-03</span>
+                            <h3 class="text-sm font-extrabold text-navy-900">Vikas M. (Agri-Tech Diploma)</h3>
+                            <p class="text-xs text-navy-700 font-semibold"><strong>Course:</strong> Sustainable Agriculture</p>
+                            <p class="text-xs text-navy-700 font-semibold"><strong>Requirement:</strong> ₹ 8,000 (Course + Soil Testing Kit)</p>
                             <p class="text-xs text-slate-500 italic">"Wants to guide village farmers in organic soil preservation."</p>
                         </div>
-                        <button onclick="expressSponsorInterest('Vikas M.', '#SSF-2026-03')" class="w-full py-2 bg-navy-700 hover:bg-navy-800 text-white font-bold text-xs rounded-xl shadow-xs">
-                            Sponsor This Student
-                        </button>
+                        <div class="p-5 pt-0">
+                            <button onclick="expressSponsorInterest('Vikas M.', '#SSF-2026-03')" class="w-full py-2.5 bg-navy-800 hover:bg-navy-900 text-white font-bold text-xs rounded-xl shadow-sm transition-all">
+                                Sponsor This Student
+                            </button>
+                        </div>
                     </div>
 
                 </div>
-
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-16 sm:py-20 bg-cream-50">
+        <!-- ───── CONTACT ───── -->
+        <section id="contact" class="py-16 sm:py-20 bg-white">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
-                    <span class="text-xs font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-3 py-1 rounded-full border border-saffron-200">Get In Touch</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-700">Contact Swarajya Seva Foundation</h2>
-                    <p class="text-slate-600 text-sm">Reach out for scholarships, agricultural guidance, health drives, or corporate CSR partnerships.</p>
+                    <span class="text-xs font-bold uppercase tracking-wider text-sunOrange-600 bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200">Get In Touch</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900">Contact Swarajya Seva Foundation</h2>
+                    <p class="text-navy-700 text-sm font-semibold">Reach out for scholarships, agricultural guidance, health drives, or CSR partnerships.</p>
                 </div>
 
-                <div class="grid lg:grid-cols-12 gap-10">
-                    <div class="lg:col-span-5 space-y-6">
-                        <div class="bg-white p-6 rounded-2xl border border-slate-200 flex items-start gap-4 shadow-xs">
-                            <div class="w-12 h-12 rounded-xl bg-saffron-50 text-saffron-600 flex items-center justify-center text-xl flex-shrink-0">
-                                <i class="fa-solid fa-user-tie"></i>
-                            </div>
+                <div class="grid lg:grid-cols-12 gap-10 max-w-5xl mx-auto">
+                    <div class="lg:col-span-5 space-y-5">
+                        <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-white text-sunOrange-600 flex items-center justify-center text-xl flex-shrink-0 shadow-sm"><i class="fa-solid fa-user-tie"></i></div>
                             <div>
-                                <h4 class="font-bold text-navy-700 text-base">Founder & President</h4>
-                                <p class="text-slate-700 text-sm font-semibold">Tejashri Sapkal</p>
-                                <p class="text-xs text-slate-500 mt-1">Swarajya Seva Foundation</p>
+                                <h4 class="font-extrabold text-navy-900 text-base">Founder & President</h4>
+                                <p class="text-navy-700 text-sm font-bold">Tejashri Sapkal</p>
+                                <p class="cursive-slogan text-sunOrange-600 text-lg mt-0.5">Serving the soil</p>
                             </div>
                         </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-slate-200 flex items-start gap-4 shadow-xs">
-                            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-sprout-500 flex items-center justify-center text-xl flex-shrink-0">
-                                <i class="fa-solid fa-phone"></i>
-                            </div>
+                        <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-white text-teal-600 flex items-center justify-center text-xl flex-shrink-0 shadow-sm"><i class="fa-solid fa-phone"></i></div>
                             <div>
-                                <h4 class="font-bold text-navy-700 text-base">Phone & WhatsApp</h4>
-                                <a href="tel:+919021751543" class="text-slate-800 text-sm font-bold hover:text-saffron-500">+91 90217 51543</a>
+                                <h4 class="font-extrabold text-navy-900 text-base">Phone & WhatsApp</h4>
+                                <a href="tel:+919021751543" class="text-navy-900 text-sm font-extrabold hover:text-sunOrange-600">+91 90217 51543</a>
                             </div>
                         </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-slate-200 flex items-start gap-4 shadow-xs">
-                            <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl flex-shrink-0">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
+                        <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-white text-sky-600 flex items-center justify-center text-xl flex-shrink-0 shadow-sm"><i class="fa-solid fa-envelope"></i></div>
                             <div>
-                                <h4 class="font-bold text-navy-700 text-base">Email Address</h4>
-                                <a href="mailto:swarajyasevafoundation@gmail.com" class="text-slate-800 text-sm font-bold hover:text-saffron-500">swarajyasevafoundation@gmail.com</a>
+                                <h4 class="font-extrabold text-navy-900 text-base">Email Address</h4>
+                                <a href="mailto:swarajyasevafoundation@gmail.com" class="text-navy-900 text-sm font-bold hover:text-sunOrange-600 break-all">swarajyasevafoundation@gmail.com</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="lg:col-span-7 bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
-                        <h3 class="text-xl font-bold text-navy-700 mb-6">Send Message</h3>
+                    <div class="lg:col-span-7 bg-amber-50 p-8 rounded-2xl border border-amber-100">
+                        <h3 class="text-xl font-extrabold text-navy-900 mb-6">Send a Message</h3>
                         <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
                             <div class="grid sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name *</label>
-                                    <input type="text" id="contactName" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-sm outline-none" placeholder="Your Name">
+                                    <label class="block text-xs font-bold text-navy-900 mb-1">Full Name *</label>
+                                    <input type="text" id="contactName" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-sm outline-none text-navy-900 font-semibold bg-white" placeholder="Your Name">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Phone Number *</label>
-                                    <input type="tel" id="contactPhone" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-sm outline-none" placeholder="9021751543">
+                                    <label class="block text-xs font-bold text-navy-900 mb-1">Phone Number *</label>
+                                    <input type="tel" id="contactPhone" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-sm outline-none text-navy-900 font-semibold bg-white" placeholder="9021751543">
                                 </div>
                             </div>
-
                             <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
-                                <input type="email" id="contactEmail" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-sm outline-none" placeholder="name@example.com">
+                                <label class="block text-xs font-bold text-navy-900 mb-1">Email Address</label>
+                                <input type="email" id="contactEmail" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-sm outline-none text-navy-900 font-semibold bg-white" placeholder="name@example.com">
                             </div>
-
                             <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Sector of Interest</label>
-                                <select id="contactSector" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-sm outline-none bg-white">
+                                <label class="block text-xs font-bold text-navy-900 mb-1">Sector of Interest</label>
+                                <select id="contactSector" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-sm outline-none bg-white text-navy-900 font-semibold">
                                     <option>Education / Scholarship</option>
                                     <option>Agriculture / Soil Health</option>
                                     <option>Health / Medical Camps</option>
                                     <option>Sponsoring a Student</option>
+                                    <option>Partnership / CSR</option>
                                     <option>General Inquiry</option>
                                 </select>
                             </div>
-
                             <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Message *</label>
-                                <textarea id="contactMessage" rows="4" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-sm outline-none" placeholder="Write message..."></textarea>
+                                <label class="block text-xs font-bold text-navy-900 mb-1">Message *</label>
+                                <textarea id="contactMessage" rows="4" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-sm outline-none text-navy-900 font-semibold bg-white" placeholder="Write your message here..."></textarea>
                             </div>
-
-                            <button type="submit" class="w-full py-3 bg-navy-700 hover:bg-navy-800 text-white font-bold text-sm rounded-xl transition-all shadow-md">
-                                Submit Message
+                            <button type="submit" class="w-full py-3 bg-navy-800 hover:bg-navy-900 text-white font-bold text-sm rounded-xl transition-all shadow-md">
+                                Submit Message <i class="fa-solid fa-paper-plane ml-1"></i>
                             </button>
                         </form>
                     </div>
@@ -567,29 +871,28 @@
             </div>
         </section>
 
-    </div>
+    </div><!-- /userPublicView -->
 
-    <!-- INTERFACE 2: ADMIN / OWNER DASHBOARD (Displayed when Admin Mode is ON) -->
+    <!-- ══════════ ADMIN DASHBOARD ══════════ -->
     <div id="adminDashboardView" class="hidden container mx-auto px-4 py-10">
-        
+
         <div class="bg-navy-900 text-white p-6 sm:p-8 rounded-3xl shadow-2xl mb-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-4">
                 <img src="assets/images/logo.png" alt="Admin Logo" class="w-16 h-16 bg-white p-2 rounded-2xl brand-logo-img">
                 <div>
-                    <div class="inline-flex items-center gap-2 bg-saffron-500 text-navy-950 font-black text-xs px-3 py-1 rounded-full mb-1">
+                    <div class="inline-flex items-center gap-2 bg-sunOrange-600 text-white font-black text-xs px-3 py-1 rounded-full mb-1">
                         <i class="fa-solid fa-lock"></i> Protected Owner & Audit Dashboard
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-extrabold">Swarajya Seva Foundation — Admin Data Export</h2>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-0.5">Download live applicant data, donor records, and messages directly for <strong>Google Sheets</strong> or Microsoft Excel audit.</p>
+                    <p class="text-slate-300 text-xs sm:text-sm mt-0.5">Download live applicant data, donor records with complete address, and messages directly for <strong>Google Sheets</strong> or Microsoft Excel audit.</p>
                 </div>
             </div>
-
             <div class="flex flex-wrap gap-3">
-                <button onclick="downloadApplicantsCSV()" class="px-5 py-3 bg-sprout-500 hover:bg-sprout-600 text-white font-extrabold text-xs rounded-xl transition-all shadow-md flex items-center gap-2 transform active:scale-95">
-                    <i class="fa-solid fa-file-excel text-lg"></i> 📥 Download Applicants for Google Sheets (CSV)
+                <button onclick="downloadApplicantsCSV()" class="px-5 py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-file-excel text-lg"></i> 📥 Download Applicants (CSV)
                 </button>
-                <button onclick="downloadInquiriesCSV()" class="px-5 py-3 bg-saffron-500 hover:bg-saffron-600 text-navy-950 font-extrabold text-xs rounded-xl transition-all shadow-md flex items-center gap-2 transform active:scale-95">
-                    <i class="fa-solid fa-file-csv text-lg"></i> 📥 Download Inquiries & Audit Data (CSV)
+                <button onclick="downloadDonationsCSV()" class="px-5 py-3 bg-sunOrange-600 hover:bg-sunOrange-700 text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-file-csv text-lg"></i> 📥 Download Donor Audit (CSV)
                 </button>
             </div>
         </div>
@@ -597,24 +900,23 @@
         <!-- Admin Tabs -->
         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md">
             <div class="flex border-b border-slate-200 mb-6 font-bold text-sm">
-                <button onclick="switchAdminTab('applicants')" id="tabBtnApplicants" class="py-3 px-6 border-b-2 border-saffron-500 text-saffron-600">
-                    <i class="fa-solid fa-graduation-cap mr-2"></i> Student Applicants Data (<span id="applicantCount">0</span>)
+                <button onclick="switchAdminTab('applicants')" id="tabBtnApplicants" class="py-3 px-6 border-b-2 border-sunOrange-600 text-sunOrange-600 font-extrabold">
+                    <i class="fa-solid fa-graduation-cap mr-2"></i> Student Applicants (<span id="applicantCount">0</span>)
                 </button>
-                <button onclick="switchAdminTab('inquiries')" id="tabBtnInquiries" class="py-3 px-6 border-b-2 border-transparent text-slate-500 hover:text-slate-800">
-                    <i class="fa-solid fa-envelope mr-2"></i> Contact Inquiries & Audit Log (<span id="inquiryCount">0</span>)
+                <button onclick="switchAdminTab('donations')" id="tabBtnDonations" class="py-3 px-6 border-b-2 border-transparent text-navy-800 font-bold hover:text-sunOrange-600">
+                    <i class="fa-solid fa-heart mr-2"></i> Donor Records (<span id="donorCount">0</span>)
                 </button>
             </div>
 
-            <!-- Tab 1: Applicants Directory Table -->
             <div id="adminApplicantsTab" class="overflow-x-auto">
                 <div class="flex justify-between items-center mb-4">
-                    <p class="text-xs text-slate-500">Live dataset saved in foundation database. Click button to download `.csv` and open in Google Sheets.</p>
-                    <button onclick="downloadApplicantsCSV()" class="px-4 py-2 bg-sprout-500 text-white font-bold text-xs rounded-lg hover:bg-sprout-600">
+                    <p class="text-xs text-navy-800 font-semibold">Live dataset from submissions. Download as CSV and open in Google Sheets.</p>
+                    <button onclick="downloadApplicantsCSV()" class="px-4 py-2 bg-teal-600 text-white font-bold text-xs rounded-lg hover:bg-teal-700">
                         <i class="fa-solid fa-download mr-1"></i> Google Sheets CSV Export
                     </button>
                 </div>
-                <table class="w-full text-left text-xs text-slate-700 border-collapse">
-                    <thead class="bg-cream-100 text-navy-700 font-bold uppercase text-[11px] border-b border-slate-200">
+                <table class="w-full text-left text-xs text-navy-900 border-collapse">
+                    <thead class="bg-amber-50 text-navy-900 font-extrabold uppercase text-[11px] border-b border-slate-200">
                         <tr>
                             <th class="p-3">Ref ID / Date</th>
                             <th class="p-3">Student Full Name</th>
@@ -626,197 +928,344 @@
                             <th class="p-3">Reason</th>
                         </tr>
                     </thead>
-                    <tbody id="applicantsTableBody" class="divide-y divide-slate-100 font-medium">
-                        <!-- Filled dynamically via JS -->
-                    </tbody>
+                    <tbody id="applicantsTableBody" class="divide-y divide-slate-100 font-semibold text-navy-900"></tbody>
                 </table>
             </div>
 
-            <!-- Tab 2: Inquiries & Audit Log -->
-            <div id="adminInquiriesTab" class="hidden overflow-x-auto">
+            <div id="adminDonationsTab" class="hidden overflow-x-auto">
                 <div class="flex justify-between items-center mb-4">
-                    <p class="text-xs text-slate-500">Messages & donor inquiries dataset for budget audit.</p>
-                    <button onclick="downloadInquiriesCSV()" class="px-4 py-2 bg-saffron-500 text-navy-950 font-bold text-xs rounded-lg hover:bg-saffron-600">
+                    <p class="text-xs text-navy-800 font-semibold">Donor records with full address, city, pincode, state, and payment mode for budget audit.</p>
+                    <button onclick="downloadDonationsCSV()" class="px-4 py-2 bg-sunOrange-600 text-white font-bold text-xs rounded-lg hover:bg-sunOrange-700">
                         <i class="fa-solid fa-download mr-1"></i> Google Sheets CSV Export
                     </button>
                 </div>
-                <table class="w-full text-left text-xs text-slate-700 border-collapse">
-                    <thead class="bg-cream-100 text-navy-700 font-bold uppercase text-[11px] border-b border-slate-200">
+                <table class="w-full text-left text-xs text-navy-900 border-collapse">
+                    <thead class="bg-amber-50 text-navy-900 font-extrabold uppercase text-[11px] border-b border-slate-200">
                         <tr>
-                            <th class="p-3">Date</th>
-                            <th class="p-3">Name</th>
-                            <th class="p-3">Phone / Email</th>
-                            <th class="p-3">Sector</th>
-                            <th class="p-3">Message</th>
+                            <th class="p-3">Ref ID / Date</th>
+                            <th class="p-3">Donor Name</th>
+                            <th class="p-3">Contact / Email</th>
+                            <th class="p-3">Full Address / City / State</th>
+                            <th class="p-3">Amount (₹)</th>
+                            <th class="p-3">Payment Mode</th>
                         </tr>
                     </thead>
-                    <tbody id="inquiriesTableBody" class="divide-y divide-slate-100 font-medium">
-                        <!-- Filled dynamically via JS -->
-                    </tbody>
+                    <tbody id="donationsTableBody" class="divide-y divide-slate-100 font-semibold text-navy-900"></tbody>
                 </table>
             </div>
-
         </div>
-
     </div>
 
-    <!-- Footer with Official Logo -->
+    <!-- ══════════ FOOTER ══════════ -->
     <footer class="bg-navy-900 text-slate-300 py-12 border-t border-navy-800 mt-auto">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
-                
+
                 <div class="space-y-4">
                     <div class="flex items-center gap-3">
-                        <img src="assets/images/logo.png" alt="Logo Footer" class="w-10 h-10 bg-white p-1 rounded-xl">
-                        <h3 class="text-lg font-extrabold text-white uppercase">Swarajya Seva Foundation</h3>
+                        <img src="assets/images/logo.png" alt="Footer Logo" class="w-10 h-10 bg-white p-1 rounded-xl brand-logo-img">
+                        <h3 class="text-base font-extrabold text-white uppercase">Swarajya Seva Foundation</h3>
                     </div>
-                    <p class="text-xs text-slate-300 leading-relaxed italic">
-                        Serving the soil • Operational Allocation: 40% Education, 30% Health, 30% Agriculture.
-                    </p>
-                    <p class="text-xs text-saffron-400 font-semibold">Founder & President: Tejashri Sapkal</p>
+                    <p class="cursive-slogan text-sunOrange-400 text-xl">Serving the soil</p>
+                    <p class="text-xs text-slate-400 leading-relaxed">Building Careers Through Skills, Innovation, and Purpose.</p>
                 </div>
 
                 <div>
-                    <h4 class="text-white font-bold text-sm mb-4">Core Allocation</h4>
-                    <ul class="space-y-2 text-xs">
-                        <li><span class="text-sky-300">🎓 Education & Awareness — 40%</span></li>
-                        <li><span class="text-rose-400">🏥 Health & Social Welfare — 30%</span></li>
-                        <li><span class="text-sprout-500">🌾 Agricultural Empowerment — 30%</span></li>
+                    <h4 class="text-white font-bold text-sm mb-4">Core Programs</h4>
+                    <ul class="space-y-2 text-xs font-semibold">
+                        <li><a href="#programs" class="hover:text-sunflower-400 transition-colors">Career Guidance</a></li>
+                        <li><a href="#programs" class="hover:text-sunflower-400 transition-colors">Scholarship Program</a></li>
+                        <li><a href="#programs" class="hover:text-sunflower-400 transition-colors">Entrepreneurship Workshops</a></li>
+                        <li><a href="#pillars" class="hover:text-sunflower-400 transition-colors">Health Camps</a></li>
+                        <li><a href="#pillars" class="hover:text-sunflower-400 transition-colors">Agricultural Empowerment</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="text-white font-bold text-sm mb-4">Contact Info</h4>
-                    <ul class="space-y-2 text-xs">
-                        <li><span>Phone: +91 90217 51543</span></li>
-                        <li><span>Email: swarajyasevafoundation@gmail.com</span></li>
-                        <li><span class="text-saffron-400">Registered Trust Deed NGO</span></li>
+                    <ul class="space-y-2 text-xs font-semibold">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-sunflower-400"></i> +91 90217 51543</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sunflower-400"></i> swarajyasevafoundation@gmail.com</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-certificate text-teal-400"></i> Registered Trust Deed NGO</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="text-white font-bold text-sm mb-4">Social Links</h4>
-                    <div class="flex items-center gap-3 text-lg">
-                        <a href="https://wa.me/919021751543" target="_blank" class="w-9 h-9 rounded-lg bg-navy-800 hover:bg-sprout-500 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
-                        <a href="#" class="w-9 h-9 rounded-lg bg-navy-800 hover:bg-sky-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <h4 class="text-white font-bold text-sm mb-4">Connect With Us</h4>
+                    <div class="flex items-center gap-3 text-lg mb-4">
+                        <a href="https://wa.me/919021751543" target="_blank" class="w-10 h-10 rounded-xl bg-navy-800 hover:bg-green-600 flex items-center justify-center transition-colors" title="WhatsApp">
+                            <i class="fa-brands fa-whatsapp text-green-400"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-navy-800 hover:bg-sky-600 flex items-center justify-center transition-colors" title="Facebook">
+                            <i class="fa-brands fa-facebook-f text-sky-400"></i>
+                        </a>
                     </div>
+                    <button onclick="openDonateModal()" class="w-full py-2.5 bg-sunOrange-600 hover:bg-sunOrange-700 text-white font-bold text-xs rounded-xl transition-all shadow-md">
+                        <i class="fa-solid fa-heart mr-1"></i> Donate Now
+                    </button>
                 </div>
 
             </div>
 
-            <div class="pt-8 border-t border-navy-800 text-center text-xs text-slate-400 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="pt-8 border-t border-navy-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-2">
                 <p>© 2026 Swarajya Seva Foundation. All Rights Reserved.</p>
-                <p class="italic">Serving the soil • Education | Health | Agriculture</p>
+                <p class="text-slate-600">Maharashtra, India</p>
             </div>
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/919021751543?text=Hello%20Swarajya%20Seva%20Foundation,%20I%20want%20to%20know%20more%20about%20Scholarship%20/%20Agriculture%20/%20Health." target="_blank" class="fixed bottom-6 right-6 z-50 bg-sprout-500 hover:bg-sprout-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl transition-all transform hover:scale-110 active:scale-95 group" title="WhatsApp Chat">
+    <!-- ══════════ FLOATING WHATSAPP ══════════ -->
+    <a href="https://wa.me/919021751543?text=Hello%20Swarajya%20Seva%20Foundation%2C%20I%20want%20to%20know%20more%20about%20Scholarship%20/%20Agriculture%20/%20Health." target="_blank"
+        class="fixed bottom-6 right-6 z-50 bg-green-600 hover:bg-green-700 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl transition-all transform hover:scale-110 active:scale-95 group" title="WhatsApp Chat">
         <i class="fa-brands fa-whatsapp"></i>
         <span class="absolute right-16 bg-navy-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none">
             Chat on WhatsApp!
         </span>
     </a>
 
-    <!-- Scholarship Application Modal -->
-    <div id="scholarshipModal" class="fixed inset-0 z-50 hidden bg-navy-950/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+    <!-- ══════════ SCHOLARSHIP MODAL ══════════ -->
+    <div id="scholarshipModal" class="fixed inset-0 z-50 hidden bg-navy-950/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 my-8">
             <button onclick="closeScholarshipModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl font-bold w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">✕</button>
-            
+
             <div class="flex items-center gap-3 mb-6">
-                <img src="assets/images/logo.png" alt="Logo Modal" class="w-10 h-10">
+                <img src="assets/images/logo.png" alt="Logo Modal" class="w-10 h-10 brand-logo-img">
                 <div>
-                    <h3 class="text-xl font-bold text-navy-700">Scholarship Application Form</h3>
-                    <p class="text-xs text-slate-500">Swarajya Seva Foundation • Educational Assistance</p>
+                    <h3 class="text-xl font-extrabold text-navy-900">Scholarship Application Form</h3>
+                    <p class="text-xs text-navy-700 font-semibold">Swarajya Seva Foundation • Educational Assistance</p>
                 </div>
             </div>
 
             <form onsubmit="handleScholarshipSubmit(event)" class="space-y-4">
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Student Full Name *</label>
-                        <input type="text" id="appFullName" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-xs outline-none" placeholder="First Middle Last Name">
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Student Full Name *</label>
+                        <input type="text" id="appFullName" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="First Middle Last Name">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Birth Date *</label>
-                        <input type="date" id="appDob" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-xs outline-none">
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Birth Date *</label>
+                        <input type="date" id="appDob" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold">
                     </div>
                 </div>
-
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Contact Phone *</label>
-                        <input type="tel" id="appPhone" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-xs outline-none" placeholder="10-digit Mobile">
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Contact Phone *</label>
+                        <input type="tel" id="appPhone" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="10-digit Mobile">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Father / Mother Occupation *</label>
-                        <input type="text" id="appOccupation" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-xs outline-none" placeholder="e.g. Farmer / Daily Wage">
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Father / Mother Occupation *</label>
+                        <input type="text" id="appOccupation" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="e.g. Farmer / Daily Wage">
                     </div>
                 </div>
-
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Current Status / What Recently Doing *</label>
-                        <input type="text" id="appStatus" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-xs outline-none" placeholder="e.g. Passed 12th">
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Current Status / What You're Doing *</label>
+                        <input type="text" id="appStatus" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="e.g. Passed 12th / Working">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">College Name *</label>
-                        <input type="text" id="appCollege" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-xs outline-none" placeholder="Targeted / Current College">
+                        <label class="block text-xs font-bold text-navy-900 mb-1">College Name *</label>
+                        <input type="text" id="appCollege" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="Targeted / Current College">
                     </div>
                 </div>
-
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Course Name *</label>
-                        <input type="text" id="appCourse" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-xs outline-none" placeholder="e.g. B.Tech, Nursing, Agri">
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Course Name *</label>
+                        <input type="text" id="appCourse" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="e.g. B.Tech, Nursing, Agri">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Scholarship Amount Needed (₹) *</label>
-                        <input type="number" id="appAmount" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-xs outline-none" placeholder="Amount (e.g. 12000)">
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Scholarship Amount Needed (₹) *</label>
+                        <input type="number" id="appAmount" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="e.g. 12000">
                     </div>
                 </div>
-
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Why do you need scholarship? *</label>
-                    <textarea id="appReason" rows="3" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-saffron-500 text-xs outline-none" placeholder="Explain your situation..."></textarea>
+                    <label class="block text-xs font-bold text-navy-900 mb-1">Why do you need this scholarship? *</label>
+                    <textarea id="appReason" rows="3" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="Explain your situation and financial need..."></textarea>
                 </div>
-
-                <button type="submit" class="w-full py-3 bg-navy-700 hover:bg-navy-800 text-white font-bold text-sm rounded-xl transition-all shadow-md">
-                    Submit Scholarship Application
+                <div class="bg-amber-50 p-3 rounded-xl border border-amber-100 text-xs text-navy-700 font-semibold">
+                    <i class="fa-solid fa-info-circle text-sunOrange-500 mr-1"></i>
+                    Documents required: Bonafide Certificate / Aadhaar Card, Income Certificate, Domicile Certificate
+                </div>
+                <button type="submit" class="w-full py-3 bg-navy-800 hover:bg-navy-900 text-white font-bold text-sm rounded-xl transition-all shadow-md">
+                    Submit Scholarship Application <i class="fa-solid fa-paper-plane ml-1"></i>
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Donation Modal -->
-    <div id="donateModal" class="fixed inset-0 z-50 hidden bg-navy-950/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100">
-            <button onclick="closeDonateModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl font-bold w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">✕</button>
+    <!-- ══════════ DONATION MODAL (3-STEP WIZARD) ══════════ -->
+    <div id="donateModal" class="fixed inset-0 z-50 hidden bg-navy-950/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl relative border border-slate-100 overflow-hidden my-6">
 
-            <div class="text-center space-y-2 mb-6">
-                <img src="assets/images/logo.png" alt="Logo Donation" class="w-14 h-14 mx-auto brand-logo-img">
-                <h3 class="text-xl font-bold text-navy-700">Swarajya Seva Foundation</h3>
-                <p class="text-xs text-slate-500">Scan QR Code or Use Bank Transfer</p>
+            <!-- Persistent Header -->
+            <div class="bg-gradient-to-r from-navy-900 via-navy-800 to-navy-900 text-white p-5 border-b border-navy-700 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="assets/images/logo.png" alt="Swarajya Seva Foundation" class="w-12 h-12 bg-white p-1 rounded-xl shadow-md brand-logo-img">
+                    <div>
+                        <h3 class="text-base sm:text-lg font-extrabold text-white uppercase tracking-wider leading-tight">Swarajya Seva Foundation</h3>
+                        <p class="cursive-slogan text-sunOrange-400 text-sm">Serving the soil</p>
+                    </div>
+                </div>
+                <button onclick="closeDonateModal()" class="text-slate-300 hover:text-white text-xl font-bold w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">✕</button>
             </div>
 
-            <div class="bg-cream-50 border border-cream-200 rounded-2xl p-4 text-center space-y-3">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=swarajyasevafoundation@sbi%26pn=Swarajya%20Seva%20Foundation%26cu=INR" alt="UPI QR Code" class="w-36 h-36 mx-auto bg-white p-2 border border-slate-200 rounded-xl">
-                <p class="text-xs text-slate-600 font-medium">Scan using GPay / PhonePe / Paytm / BHIM</p>
-                <div class="text-[11px] font-mono text-slate-500 bg-white py-1 px-3 rounded-lg border border-slate-200 inline-block">
-                    UPI ID: <strong class="text-slate-800">swarajyasevafoundation@sbi</strong>
+            <!-- Step Indicator -->
+            <div class="bg-amber-50 px-6 py-2.5 border-b border-amber-100 flex justify-between items-center text-[11px] font-extrabold text-navy-800">
+                <div id="stepIndicator1" class="flex items-center gap-1.5 text-sunOrange-600">
+                    <span class="w-5 h-5 rounded-full bg-sunOrange-600 text-white flex items-center justify-center text-[10px]">1</span>
+                    <span>1. Amount</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-slate-300 text-[9px]"></i>
+                <div id="stepIndicator2" class="flex items-center gap-1.5 text-slate-400">
+                    <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px]">2</span>
+                    <span>2. Details</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-slate-300 text-[9px]"></i>
+                <div id="stepIndicator3" class="flex items-center gap-1.5 text-slate-400">
+                    <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px]">3</span>
+                    <span>3. Payment</span>
                 </div>
             </div>
 
-            <div class="mt-5 text-center">
-                <button onclick="confirmDonationDone()" class="w-full py-3 bg-sprout-500 hover:bg-sprout-600 text-white font-bold text-sm rounded-xl transition-all shadow-md">
-                    I Have Transferred Donation
-                </button>
+            <div class="p-6 sm:p-7">
+
+                <!-- STEP 1: Amount -->
+                <div id="donateStep1" class="space-y-5">
+                    <div class="text-center space-y-1">
+                        <h4 class="text-lg font-extrabold text-navy-900">Select Donation Amount</h4>
+                        <p class="text-xs text-slate-500 font-semibold">Choose a preset or enter your custom amount</p>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        <button type="button" onclick="selectDonatePreset(500)" class="donate-preset-btn py-3 px-2 text-xs font-black border-2 border-slate-200 rounded-xl hover:border-sunOrange-500 text-navy-900 transition-all">₹ 500</button>
+                        <button type="button" onclick="selectDonatePreset(2000)" class="donate-preset-btn py-3 px-2 text-xs font-black border-2 border-slate-200 rounded-xl hover:border-sunOrange-500 text-navy-900 transition-all">₹ 2,000</button>
+                        <button type="button" onclick="selectDonatePreset(5000)" class="donate-preset-btn active py-3 px-2 text-xs font-black border-2 border-sunOrange-500 bg-amber-50 text-sunOrange-600 rounded-xl transition-all">₹ 5,000</button>
+                        <button type="button" onclick="selectDonatePreset(10000)" class="donate-preset-btn py-3 px-2 text-xs font-black border-2 border-slate-200 rounded-xl hover:border-sunOrange-500 text-navy-900 transition-all">₹ 10,000</button>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-extrabold text-navy-900 mb-1.5">Donation Amount (Rs.): *</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 font-extrabold text-slate-500 text-sm">₹</span>
+                            <input type="number" id="donateAmountInput" value="5000" oninput="updateCheckoutAmount()" required class="w-full pl-9 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-sunOrange-500 text-base font-extrabold text-navy-900 outline-none" placeholder="Enter amount">
+                        </div>
+                    </div>
+                    <button type="button" onclick="goToDonateStep(2)" class="w-full py-3.5 bg-sunOrange-600 hover:bg-sunOrange-700 text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                        <span>Next: Donor Details</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- STEP 2: Donor Details -->
+                <div id="donateStep2" class="hidden space-y-4">
+                    <div class="text-center space-y-1 mb-3">
+                        <h4 class="text-lg font-extrabold text-navy-900">Donor Information</h4>
+                        <p class="text-xs text-slate-500 font-semibold">Required for tax receipt & audit records</p>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-navy-900 mb-1">Full Name *</label>
+                            <input type="text" id="donorName" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="Donor Full Name">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-navy-900 mb-1">Contact / Mobile No *</label>
+                            <input type="tel" id="donorPhone" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="10-digit Mobile">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Email ID *</label>
+                        <input type="email" id="donorEmail" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="name@example.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Residential Address</label>
+                        <input type="text" id="donorAddress" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="Street Address / Area">
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div>
+                            <label class="block text-xs font-bold text-navy-900 mb-1">City</label>
+                            <input type="text" id="donorCity" class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="City">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-navy-900 mb-1">Pincode</label>
+                            <input type="text" id="donorPincode" class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="Pincode">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-navy-900 mb-1">State</label>
+                            <input type="text" id="donorState" class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sunOrange-400 text-xs outline-none text-navy-900 font-semibold" placeholder="State">
+                        </div>
+                    </div>
+                    <div class="pt-2 flex items-center gap-3">
+                        <button type="button" onclick="goToDonateStep(1)" class="w-1/3 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-all">← Back</button>
+                        <button type="button" onclick="validateAndGoToStep3()" class="w-2/3 py-3 bg-sunOrange-600 hover:bg-sunOrange-700 text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5">
+                            <span>Proceed to Pay</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Payment -->
+                <div id="donateStep3" class="hidden space-y-5">
+                    <div class="bg-navy-900 text-white p-3.5 rounded-2xl flex justify-between items-center shadow-sm">
+                        <div>
+                            <p class="text-[10px] text-slate-300 font-medium">Donation Amount Selected:</p>
+                            <h3 class="text-xl font-black text-sunflower-400" id="checkoutAmountDisplay">₹ 5,000</h3>
+                        </div>
+                        <button onclick="goToDonateStep(1)" class="text-xs text-sunOrange-400 font-bold hover:underline">Change Amount</button>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="block text-xs font-extrabold text-navy-900">Select Payment Mode:</label>
+                        <div class="bg-amber-50 border-2 border-sunOrange-500 rounded-2xl p-4 space-y-3 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-qrcode text-sunOrange-600 text-lg"></i>
+                                    <h5 class="font-extrabold text-xs text-navy-900">UPI & QR Code (GPay / PhonePe / Paytm / BHIM)</h5>
+                                </div>
+                                <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded-md">Instant</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-slate-100 text-center">
+                                <img id="dynamicUpiQr" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=swarajyasevafoundation@sbi%26pn=Swarajya%20Seva%20Foundation%26am=5000%26cu=INR" alt="Dynamic UPI QR" class="w-36 h-36 mx-auto rounded-lg p-1 border border-slate-100">
+                                <p class="text-[11px] text-navy-900 font-bold mt-2">Scan with GPay, PhonePe, Paytm or BHIM</p>
+                                <div class="mt-1 font-mono text-[11px] text-slate-600 bg-slate-50 py-1 px-3 rounded-md border border-slate-200 inline-block font-bold">
+                                    UPI ID: <strong class="text-navy-900">swarajyasevafoundation@sbi</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white border border-slate-200 rounded-2xl p-3.5 space-y-2">
+                            <div class="flex items-center text-xs font-bold text-navy-900 gap-2">
+                                <i class="fa-solid fa-credit-card text-sky-600"></i> Cards / Netbanking / Direct Bank Transfer
+                            </div>
+                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-[11px] text-slate-700 font-mono space-y-1">
+                                <p><span class="font-sans">Bank:</span> State Bank of India (SBI)</p>
+                                <p><span class="font-sans">Account No:</span> 90217515431001</p>
+                                <p><span class="font-sans">IFSC Code:</span> SBIN0009999</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-2 flex items-center gap-3">
+                        <button type="button" onclick="goToDonateStep(2)" class="w-1/3 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-all">← Back</button>
+                        <button type="button" onclick="confirmDonationDone()" class="w-2/3 py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-circle-check"></i> Complete & Submit Payment
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 
     <!-- JavaScript -->
     <script src="js/main.js"></script>
+
+    <!-- Accordion & Language JS (inline for simplicity) -->
+    <script>
+        function toggleAccordion(id) {
+            const body = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            body.classList.toggle('open');
+            if (icon) icon.style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+        }
+
+        // Minimal language switcher stub
+        function changeLanguage(lang) {
+            if (lang === 'mr') alert('मराठी भाषा समर्थन लवकरच येत आहे!');
+            if (lang === 'hi') alert('हिंदी भाषा समर्थन जल्द आ रहा है!');
+        }
+    </script>
+
 </body>
 </html>
